@@ -73,6 +73,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Early Image Error Fallback Handler -->
+  <script>
+    window.handleImageError = function(img, fallbackText) {
+      if (!img) return;
+      img.onerror = null;
+      img.classList.add('hidden');
+      if (img.parentElement) {
+        const fallback = document.createElement('div');
+        fallback.className = 'w-full h-full min-h-[220px] flex flex-col items-center justify-center p-4 text-center bg-stone-100 text-stone-700 rounded-2xl border border-stone-200';
+        fallback.innerHTML = `
+          <div class="w-10 h-10 rounded-full bg-forest text-amber-300 flex items-center justify-center mb-2 shadow-sm">
+            <i data-lucide="image" class="w-5 h-5"></i>
+          </div>
+          <span class="font-bold text-xs text-forest-dark uppercase tracking-wider">${fallbackText || 'Sugar Fit Product'}</span>
+          <span class="text-[10px] text-stone-500 mt-1">100% Pure Vijaysar Wood</span>
+        `;
+        img.parentElement.appendChild(fallback);
+        if (window.lucide) lucide.createIcons();
+      }
+    };
+  </script>
 </head>
 
 <body class="wood-texture-bg text-stone-800 antialiased selection:bg-amber-300 selection:text-emerald-950">
@@ -2027,14 +2049,14 @@
   <!-- =========================================================================
        REAL PRODUCT PHOTO LIGHTBOX MODAL
        ========================================================================= -->
-  <div id="gallery-modal" class="fixed inset-0 z-50 modal-overlay hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl border border-stone-200 relative flex flex-col items-center animate-in fade-in zoom-in duration-200">
+  <div id="gallery-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4 cursor-pointer" onclick="if(event.target === this) closeGalleryModal()">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl border border-stone-200 relative flex flex-col items-center animate-in fade-in zoom-in duration-200 cursor-default" onclick="event.stopPropagation()">
       
-      <button onclick="closeGalleryModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center z-10 transition-colors">
+      <button onclick="closeGalleryModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center z-10 transition-colors" aria-label="Close Preview">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <img id="gallery-modal-img" src="" alt="Real Product Photo" class="max-h-[68vh] w-auto rounded-2xl object-contain shadow-md mb-4 border border-stone-100">
+      <img id="gallery-modal-img" src="" alt="Real Product Photo" onerror="window.handleImageError && handleImageError(this, 'SUGAR FIT Product Showcase')" class="max-h-[68vh] w-auto rounded-2xl object-contain shadow-md mb-4 border border-stone-100">
       
       <div id="gallery-modal-caption" class="font-display font-bold text-sm sm:text-base text-forest-dark text-center px-4 leading-snug"></div>
       
@@ -2058,10 +2080,10 @@
   <!-- =========================================================================
        REAL PRODUCT VIDEO LIGHTBOX MODAL
        ========================================================================= -->
-  <div id="video-modal" class="fixed inset-0 z-50 modal-overlay hidden flex items-center justify-center p-4">
-    <div class="bg-forest-dark rounded-3xl max-w-3xl w-full p-4 sm:p-6 shadow-2xl border border-amber-400/40 relative flex flex-col items-center animate-in fade-in zoom-in duration-200">
+  <div id="video-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4 cursor-pointer" onclick="if(event.target === this) closeVideoModal()">
+    <div class="bg-forest-dark rounded-3xl max-w-3xl w-full p-4 sm:p-6 shadow-2xl border border-amber-400/40 relative flex flex-col items-center animate-in fade-in zoom-in duration-200 cursor-default" onclick="event.stopPropagation()">
       
-      <button onclick="closeVideoModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-800/80 hover:bg-stone-700 text-white flex items-center justify-center z-10 transition-colors">
+      <button onclick="closeVideoModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-800/80 hover:bg-stone-700 text-white flex items-center justify-center z-10 transition-colors" aria-label="Close Video">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
@@ -2097,15 +2119,22 @@
       const cap = document.getElementById('gallery-modal-caption');
       if (modal && img) {
         img.src = src;
-        if (cap) cap.innerText = caption;
+        img.classList.remove('hidden');
+        if (cap) cap.innerText = caption || '';
         modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
         if (window.lucide) lucide.createIcons();
       }
     };
 
     window.closeGalleryModal = function() {
       const modal = document.getElementById('gallery-modal');
-      if (modal) modal.classList.add('hidden');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
     };
 
     window.openVideoModal = function() {
@@ -2113,6 +2142,8 @@
       const video = document.getElementById('modal-video-player');
       if (modal) {
         modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
         if (video) video.play().catch(e => console.log('Autoplay handled', e));
         if (window.lucide) lucide.createIcons();
       }
@@ -2122,28 +2153,21 @@
       const modal = document.getElementById('video-modal');
       const video = document.getElementById('modal-video-player');
       if (video) video.pause();
-      if (modal) modal.classList.add('hidden');
-    };
-
-    // Graceful image fallback handler
-    window.handleImageError = function(img, fallbackText) {
-      if (!img) return;
-      img.onerror = null;
-      img.classList.add('hidden');
-      if (img.parentElement) {
-        const fallback = document.createElement('div');
-        fallback.className = 'w-full h-full min-h-[220px] flex flex-col items-center justify-center p-4 text-center bg-stone-100 text-stone-700 rounded-2xl border border-stone-200';
-        fallback.innerHTML = `
-          <div class="w-10 h-10 rounded-full bg-forest text-amber-300 flex items-center justify-center mb-2 shadow-sm">
-            <i data-lucide="image" class="w-5 h-5"></i>
-          </div>
-          <span class="font-bold text-xs text-forest-dark uppercase tracking-wider">${fallbackText || 'Sugar Fit Product'}</span>
-          <span class="text-[10px] text-stone-500 mt-1">100% Pure Vijaysar Wood</span>
-        `;
-        img.parentElement.appendChild(fallback);
-        if (window.lucide) lucide.createIcons();
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
       }
     };
+
+    // Close modals on Escape key press
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeGalleryModal();
+        closeVideoModal();
+        if (typeof closeOrderModal === 'function') closeOrderModal();
+      }
+    });
 
     // Interactive 360 Drag & Spin for Real Physical Glass
     document.addEventListener('DOMContentLoaded', function() {
