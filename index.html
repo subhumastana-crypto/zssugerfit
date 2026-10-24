@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUGAR FIT™ | Diabetes Control & Body Detox Vijaysar Wooden Tumbler</title>
+  <meta name="description" content="Experience 100% natural blood sugar balance & active body detox with pure Vijaysar (Pterocarpus Marsupium) raw heartwood tumbler. 0% Polish, 100% Ayurvedic.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: {
+              DEFAULT: '#1E3E26',
+              dark: '#14281B',
+              light: '#2D5A38',
+              soft: '#E4EED7',
+            },
+            leaf: {
+              DEFAULT: '#5B8E32',
+              dark: '#375B1B',
+              light: '#7EB23A',
+              soft: '#EDF5E4',
+            },
+            wood: {
+              DEFAULT: '#B8732A',
+              dark: '#633917',
+              light: '#D89748',
+              golden: '#E5B869',
+            },
+            cream: {
+              DEFAULT: '#F7F2EA',
+              card: '#FAF6F0',
+              honey: '#F2E7D3',
+              darker: '#E8DCC8',
+            },
+            amber: {
+              DEFAULT: '#C87A28',
+              dark: '#8E4E12',
+              light: '#FCEBD3',
+              gold: '#DFAB2E',
+            },
+            whatsapp: {
+              DEFAULT: '#25D366',
+              dark: '#1EBE5D',
+            }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            display: ['Cinzel', 'Playfair Display', 'serif'],
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            hindi: ['Noto Sans Devanagari', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Three.js & Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="wood-texture-bg text-stone-800 antialiased selection:bg-amber-300 selection:text-emerald-950">
+
+  <!-- Dynamic Day/Night Sky Background Transition (Stage 3 Hima Kalpana) -->
+  <div id="sky-backdrop"></div>
+
+  <!-- Three.js 3D Canvas Viewport -->
+  <div id="webgl-container"></div>
+
+  <!-- 3D HUD Interactive Floating Controls Overlay -->
+  <div class="canvas-ui-layer fixed top-20 right-4 sm:right-8 z-30 flex flex-col items-end gap-2.5">
+    
+    <!-- 3D Inspect Mode Toggle Button -->
+    <button id="inspect-toggle-btn" onclick="toggleInspectMode()" 
+      class="px-3.5 py-2 rounded-full glass-panel shadow-md border border-stone-300/80 text-xs sm:text-sm font-semibold text-emerald-950 hover:bg-emerald-900 hover:text-white transition-all flex items-center gap-1.5 backdrop-blur-md">
+      <i data-lucide="rotate-3d" class="w-4 h-4 text-emerald-800"></i>
+      <span>Inspect 360°</span>
+    </button>
+
+    <!-- Ambient Audio Ripple Toggle -->
+    <button id="sound-toggle-btn" onclick="toggleAmbientSound()" 
+      class="p-2.5 rounded-full glass-panel shadow-md border border-stone-300/80 hover:bg-stone-100 transition-all text-xs flex items-center justify-center" title="Toggle Soothing Morning Ambient Sound">
+      <i data-lucide="volume-x" class="w-4 h-4 text-stone-500"></i>
+    </button>
+
+    <!-- Stage Navigation Pill Box -->
+    <div class="glass-panel rounded-2xl p-2 border border-stone-300/70 shadow-lg flex flex-col gap-1.5 hidden md:flex">
+      <div class="text-[10px] font-bold tracking-wider uppercase text-stone-500 px-2 py-0.5">3D Interactive Stages</div>
+      <button onclick="jumpToStage(1)" data-stage="1" class="stage-pill text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-900 text-amber-200 border border-amber-400 transition-all">
+        1. Pure Tumbler & Coaster
+      </button>
+      <button onclick="jumpToStage(2)" data-stage="2" class="stage-pill text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white/80 text-stone-700 border border-stone-300 hover:bg-emerald-50 transition-all">
+        2. Coaster Lifts & Water Pour
+      </button>
+      <button onclick="jumpToStage(3)" data-stage="3" class="stage-pill text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white/80 text-stone-700 border border-stone-300 hover:bg-emerald-50 transition-all">
+        3. Overnight Hima Kalpana
+      </button>
+      <button onclick="jumpToStage(4)" data-stage="4" class="stage-pill text-left px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white/80 text-stone-700 border border-stone-300 hover:bg-emerald-50 transition-all">
+        4. 360° View & Morning Pour
+      </button>
+    </div>
+  </div>
+
+  <!-- 3D Inspection Mode Notice Banner -->
+  <div id="inspect-notice" class="fixed top-24 left-1/2 -translate-x-1/2 z-30 glass-panel-dark text-white px-5 py-2.5 rounded-full shadow-2xl border border-amber-400/50 text-xs sm:text-sm font-medium flex items-center gap-3 hidden">
+    <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
+    <span>Drag to rotate 360° • Pinch / Scroll to Zoom raw wood grain</span>
+    <button onclick="toggleInspectMode()" class="ml-2 text-amber-300 underline font-bold">Done</button>
+  </div>
+
+  <!-- Announcement Bar -->
+  <div class="bg-forest-dark text-amber-100 py-2 px-4 text-center text-xs sm:text-sm font-medium tracking-wide border-b border-amber-900/40 relative z-30">
+    <div class="container mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+      <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500 text-emerald-950 uppercase tracking-wider">ZS NATURAL</span>
+      <span>🌿 Authentic Vijaysar Wood Tumbler • Flat 50% OFF (₹699) + Free Coaster</span>
+      <span class="hidden md:inline text-amber-300/80">•</span>
+      <span class="hidden md:inline">📞 +91 7017905125 / +91 9358190766</span>
+      <span class="hidden md:inline text-amber-300/80">•</span>
+      <a href="mailto:zsayurvedaa@gmail.com" class="hover:underline text-amber-200">✉️ zsayurvedaa@gmail.com</a>
+    </div>
+  </div>
+
+  <!-- Primary Sticky Header Navigation -->
+  <header class="sticky top-0 z-30 glass-panel border-b border-stone-200/80 transition-all">
+    <div class="container mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Logo & Brand Badge -->
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-forest flex items-center justify-center text-amber-300 shadow-md border border-amber-400/30 group-hover:scale-105 transition-transform">
+          <i data-lucide="leaf" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+        </div>
+        <div>
+          <div class="font-display font-bold text-lg sm:text-2xl text-forest tracking-tight leading-none">SUGAR FIT<span class="text-xs text-amber-600 align-super">®</span></div>
+          <div class="text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-wood-dark">By ZS NATURAL • Banglore</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center gap-5 text-sm font-semibold text-stone-700">
+        <a href="#video-demo" class="hover:text-forest transition-colors flex items-center gap-1.5 text-red-700 font-bold bg-red-50 hover:bg-red-100 px-3 py-1 rounded-full border border-red-200">
+          <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
+          <i data-lucide="play-circle" class="w-4 h-4 text-red-600"></i>
+          <span>Live Video</span>
+        </a>
+        <a href="#real-gallery" class="hover:text-forest transition-colors flex items-center gap-1 text-emerald-800 font-bold"><i data-lucide="camera" class="w-4 h-4"></i> Real Photos</a>
+        <a href="#benefits" class="hover:text-forest transition-colors">Core Benefits</a>
+        <a href="#how-it-works" class="hover:text-forest transition-colors">How it Works</a>
+        <a href="#usage-guide" class="hover:text-forest transition-colors">3-Step Ritual</a>
+        <a href="#hindi-guide" class="hover:text-forest transition-colors text-amber-900 font-bold bg-amber-100/80 px-2.5 py-0.5 rounded-full border border-amber-300">हिंदी निर्देश</a>
+        <a href="#specifications" class="hover:text-forest transition-colors">Specs</a>
+        <a href="#testimonials" class="hover:text-forest transition-colors">Reviews</a>
+        <a href="#faq" class="hover:text-forest transition-colors">FAQ</a>
+      </nav>
+
+      <!-- Header CTAs -->
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)." 
+           target="_blank" rel="noopener noreferrer"
+           class="btn-primary-wa hidden sm:inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold shadow-md">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+          <span>Order via WhatsApp (₹699)</span>
+        </a>
+
+        <button onclick="openOrderModal(1)" class="btn-wood text-white px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold shadow-md hover:opacity-95 transition-all">
+          Quick Buy
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       SCROLL EXPERIENCE CONTAINER (Contains the 4 Stages connected to 3D Canvas)
+       ========================================================================= -->
+  <div id="scroll-experience-container" class="relative">
+
+    <!-- -----------------------------------------------------------------------
+         STAGE 1 (HERO SECTION - Above the Fold)
+         Tumbler floats upright with soft natural light & anti-gravity floating coaster
+         ----------------------------------------------------------------------- -->
+    <section id="hero" class="stage-section pt-8 pb-16 sm:py-20">
+      <div class="container mx-auto px-4 sm:px-6 relative z-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[75vh]">
+          
+          <!-- Left Column: High Converting Hero Copy & Direct WhatsApp Order -->
+          <div class="lg:col-span-6 xl:col-span-7 flex flex-col items-start space-y-6">
+            
+            <!-- Badge, Real Photo & Video Quick Links -->
+            <div class="flex flex-wrap items-center gap-2.5">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full badge-forest text-xs sm:text-sm font-bold tracking-wide">
+                <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+                <span>100% Natural Ayurvedic Care</span>
+              </div>
+
+              <button onclick="openVideoModal()" 
+                      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-100/90 hover:bg-red-200 border border-red-300 text-xs font-bold text-red-900 shadow-sm transition-all group">
+                <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-red-700 text-red-700 group-hover:scale-110 transition-transform"></i>
+                <span>Watch Video Demo</span>
+              </button>
+
+              <button onclick="openGalleryModal('images/product-studio-shot.png', 'Original Studio Photo: Vijaysar Tumbler & Coaster on Woven Mat')" 
+                      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-100/90 hover:bg-amber-200 border border-amber-300 text-xs font-bold text-amber-900 shadow-sm transition-all">
+                <i data-lucide="camera" class="w-3.5 h-3.5 text-amber-800"></i>
+                <span>Real Photos</span>
+              </button>
+            </div>
+
+            <!-- Headline -->
+            <div class="space-y-2">
+              <div class="text-xs sm:text-sm font-bold uppercase tracking-widest text-wood">Small Change...</div>
+              <h1 class="font-display text-4xl sm:text-5xl xl:text-6xl font-extrabold text-forest-dark leading-[1.12]">
+                Better <span class="font-serif italic font-normal text-wood">Health!</span>
+              </h1>
+              <div class="inline-block px-3 py-1 rounded-lg bg-leaf-soft text-leaf-dark border border-leaf/30 text-xs sm:text-sm font-bold">
+                🍃 Natural Sugar, A Healthier You
+              </div>
+              <p class="text-base sm:text-lg text-stone-700 font-medium max-w-xl leading-relaxed pt-1">
+                Simple morning wellness ritual for natural blood sugar balance & active body detox. Harness the ancient power of pure Vijaysar heartwood cold water infusion.
+              </p>
+            </div>
+
+            <!-- Pricing Card -->
+            <div class="w-full max-w-md glass-panel p-5 sm:p-6 rounded-2xl shadow-xl border-2 border-amber-400/70 relative overflow-hidden bg-gradient-to-b from-cream-card via-cream to-cream-honey/40">
+              <div class="absolute -right-12 -top-12 w-28 h-28 bg-amber-400/25 rounded-full blur-xl pointer-events-none"></div>
+              
+              <div class="flex items-center justify-between pb-3 border-b border-amber-200/80">
+                <div>
+                  <span class="text-xs font-bold text-wood uppercase tracking-wider block">Special Introductory Offer</span>
+                  <div class="flex items-baseline gap-2.5 mt-1">
+                    <span class="text-3xl sm:text-4xl font-extrabold text-forest-dark font-display">₹699</span>
+                    <span class="text-base sm:text-lg text-stone-400 line-through font-semibold">₹1,399</span>
+                    <span class="text-xs font-extrabold bg-leaf-soft text-leaf-dark px-2.5 py-0.5 rounded-full border border-leaf/30">50% OFF</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[11px] font-bold text-amber-800 bg-amber-100/90 px-2.5 py-1 rounded-full border border-amber-300 shadow-sm">
+                    Free Coaster Included
+                  </span>
+                </div>
+              </div>
+
+              <div class="py-3 text-xs text-stone-600 flex flex-col gap-1.5">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                  <span>1 Pc Lathe-Turned Vijaysar Medicinal Tumbler</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                  <span>Matching Carved Wooden Coaster/Lid with Ayurvedic Seal</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                  <span>Free Pan-India Delivery & Cash on Delivery Available</span>
+                </div>
+              </div>
+
+              <!-- Primary CTAs -->
+              <div class="mt-4 space-y-2.5">
+                <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+                   target="_blank" rel="noopener noreferrer"
+                   class="btn-primary-wa w-full py-3.5 px-6 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-3">
+                  <i data-lucide="message-circle" class="w-5 h-5 fill-white"></i>
+                  <span>Order via WhatsApp (₹699)</span>
+                </a>
+
+                <div class="flex items-center justify-between text-xs text-stone-500 pt-1 px-1">
+                  <a href="https://wa.me/919358190766?text=Hi%2C%20I%20have%20an%20inquiry%20regarding%20the%20Sugar%20Fit%20Wooden%20Tumbler."
+                     target="_blank" rel="noopener noreferrer"
+                     class="text-wood hover:text-forest underline font-semibold flex items-center gap-1">
+                    <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+                    <span>Questions? Support: +91 9358190766</span>
+                  </a>
+                  <span class="text-emerald-700 font-semibold">⚡ Limited Batch: 34 Left</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trust Badges matching official poster -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full max-w-xl pt-2">
+              <div class="glass-card p-3 rounded-xl text-center border border-emerald-900/10">
+                <i data-lucide="leaf" class="w-5 h-5 mx-auto text-forest mb-1"></i>
+                <div class="text-xs font-bold text-forest-dark">100% Natural</div>
+                <div class="text-[10px] text-stone-500">Pure Vijaysar Wood</div>
+              </div>
+              <div class="glass-card p-3 rounded-xl text-center border border-emerald-900/10">
+                <i data-lucide="flask-conical-off" class="w-5 h-5 mx-auto text-wood mb-1"></i>
+                <div class="text-xs font-bold text-forest-dark">No Added Chemicals</div>
+                <div class="text-[10px] text-stone-500">0% Polish & Varnish</div>
+              </div>
+              <div class="glass-card p-3 rounded-xl text-center border border-emerald-900/10">
+                <i data-lucide="shield-check" class="w-5 h-5 mx-auto text-emerald-700 mb-1"></i>
+                <div class="text-xs font-bold text-forest-dark">Diabetes Control</div>
+                <div class="text-[10px] text-stone-500">Balances Glucose</div>
+              </div>
+              <div class="glass-card p-3 rounded-xl text-center border border-emerald-900/10">
+                <i data-lucide="heart-pulse" class="w-5 h-5 mx-auto text-amber-700 mb-1"></i>
+                <div class="text-xs font-bold text-forest-dark">Supports Health</div>
+                <div class="text-[10px] text-stone-500">Active Morning Detox</div>
+              </div>
+            </div>
+
+            <!-- Pure Safe Natural Pill -->
+            <div class="text-xs font-bold text-forest tracking-wider uppercase flex items-center gap-3">
+              <span>🌿 PURE</span>
+              <span>•</span>
+              <span>SAFE</span>
+              <span>•</span>
+              <span>NATURAL 🌿</span>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Main Front Product Showcase & 3D Interactive Anchor -->
+          <div class="lg:col-span-6 xl:col-span-5 flex flex-col items-center justify-center relative w-full">
+            
+            <!-- Hero Product Card (Featured Front Visual) -->
+            <div id="hero-main-card" class="relative w-full max-w-sm sm:max-w-md glass-card rounded-3xl p-3 sm:p-4 shadow-2xl border-2 border-amber-400/80 group hover:shadow-emerald-950/25 transition-all duration-500 overflow-hidden bg-gradient-to-b from-amber-50/80 via-cream/90 to-stone-100/90">
+              
+              <!-- Floating Highlights & Badges -->
+              <div class="absolute top-4 left-4 z-10 flex flex-col gap-1.5 pointer-events-auto">
+                <span class="px-3 py-1 rounded-full bg-forest text-amber-300 text-[11px] font-bold shadow-md flex items-center gap-1.5 border border-amber-400/40">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>100% Raw Medicinal Wood</span>
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-700/90 text-white text-[10px] font-bold shadow-sm self-start">
+                  Authentic Vijaysar Tree Heartwood
+                </span>
+              </div>
+
+              <div class="absolute top-4 right-4 z-10 pointer-events-auto">
+                <span class="px-3 py-1 rounded-full bg-emerald-800/95 text-amber-200 text-xs font-extrabold shadow-md border border-amber-300/40 flex items-center gap-1">
+                  <i data-lucide="gift" class="w-3.5 h-3.5 text-amber-300"></i>
+                  <span>Free Coaster</span>
+                </span>
+              </div>
+
+              <!-- Main Hero Image Frame: Real Glass Showcase with Interactive 360 Spin -->
+              <div id="interactive-360-viewer" 
+                   class="relative rounded-2xl overflow-hidden aspect-[4/5] sm:aspect-[3/4] bg-gradient-to-b from-[#FAF6F0] via-cream to-[#EFE7D8] flex items-center justify-center cursor-grab active:cursor-grabbing shadow-inner select-none"
+                   title="Click & Drag to Rotate 360°"
+                   onclick="if(!window.isDraggingRealGlass) openGalleryModal('images/real-glass-showcase.png', 'SUGAR FIT - Authentic Vijaysar Wooden Tumbler & Matching Coaster (Real Physical Glass)')">
+                
+                <img id="real-glass-img"
+                     src="images/real-glass-showcase.png" 
+                     alt="SUGAR FIT Authentic Vijaysar Wooden Glass & Coaster (Real Product)"
+                     onerror="window.handleImageError && handleImageError(this, 'SUGAR FIT Real Vijaysar Glass')"
+                     class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_16px_28px_rgba(40,24,10,0.22)]">
+
+                <!-- 360° Interactive Drag Indicator Badge -->
+                <div class="absolute top-3 right-3 glass-panel-dark/85 backdrop-blur-md rounded-full px-2.5 py-1 text-white flex items-center gap-1.5 border border-amber-400/50 shadow-md text-[10px] font-bold pointer-events-none">
+                  <i data-lucide="rotate-3d" class="w-3.5 h-3.5 text-amber-300 animate-spin" style="animation-duration: 8s;"></i>
+                  <span>Drag 360°</span>
+                </div>
+
+                <!-- Anti-Gravity Water Essence Badge -->
+                <div class="absolute bottom-3 left-3 right-3 glass-panel-dark/90 backdrop-blur-md rounded-xl p-2.5 text-white flex items-center justify-between border border-amber-400/40 shadow-lg">
+                  <div class="text-left">
+                    <div class="text-[10px] uppercase font-bold text-amber-300 tracking-wider">Real Medicinal Wood</div>
+                    <div class="text-xs font-bold text-white">Authentic Tumbler & Free Coaster</div>
+                  </div>
+                  <button onclick="event.stopPropagation(); openGalleryModal('images/real-glass-showcase.png', 'Sugar Fit Real Physical Glass & Coaster')" 
+                          class="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-forest-dark text-[10px] font-bold flex items-center gap-1 shadow-sm transition-colors">
+                    <i data-lucide="zoom-in" class="w-3 h-3"></i>
+                    <span>Zoom</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Bottom Interactive Mode Switcher -->
+              <div class="mt-3 pt-3 border-t border-stone-200 flex items-center justify-between gap-2">
+                <button onclick="toggleInspectMode()" 
+                        class="flex-1 py-2 px-3 rounded-xl bg-forest hover:bg-forest-light text-amber-200 text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-1.5 border border-amber-400/40">
+                  <i data-lucide="rotate-3d" class="w-4 h-4"></i>
+                  <span>Rotate in 3D (360°)</span>
+                </button>
+                <button onclick="openVideoModal()" 
+                        class="py-2 px-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-1.5">
+                  <i data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
+                  <span>Video Demo</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Scroll invitation below card -->
+            <div class="mt-4 text-xs text-stone-500 font-medium flex items-center gap-1.5 animate-bounce">
+              <span>Scroll down to experience the 4-stage water ritual</span>
+              <i data-lucide="arrow-down" class="w-3.5 h-3.5 text-forest"></i>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- -----------------------------------------------------------------------
+         STAGE 2: HOW IT WORKS & WATER POURING
+         Coaster lifts off, clean water particles pour into tumbler
+         ----------------------------------------------------------------------- -->
+    <section id="how-it-works" class="stage-section py-24 sm:py-32">
+      <div class="container mx-auto px-4 sm:px-6 relative z-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-6 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-gold text-xs font-bold uppercase tracking-wider">
+              <span>Stage 2 • Cold Water Activation</span>
+            </div>
+            
+            <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-forest-dark leading-tight">
+              Pure Water Meets <br>
+              <span class="font-serif italic font-normal text-wood">Living Medicinal Heartwood</span>
+            </h2>
+
+            <p class="text-base sm:text-lg text-stone-700 leading-relaxed">
+              When fresh drinking water is poured into the untreated chamber of the Vijaysar tumbler, it enters thousands of microscopic wood vascular pores. Unlike varnished commercial products, this raw timber immediately begins liberating bioactive flavonoids into the water.
+            </p>
+
+            <div class="space-y-4 pt-2">
+              <div class="flex items-start gap-3.5 p-3.5 rounded-xl bg-white/70 border border-emerald-900/10 shadow-sm">
+                <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-800 font-bold text-sm shrink-0">1</div>
+                <div>
+                  <h4 class="font-bold text-forest-dark text-sm sm:text-base">Natural Coaster Protection</h4>
+                  <p class="text-xs sm:text-sm text-stone-600">The included matching Vijaysar wooden lid seals the chamber, preventing dust while allowing the wood to breathe naturally.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3.5 p-3.5 rounded-xl bg-white/70 border border-emerald-900/10 shadow-sm">
+                <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-800 font-bold text-sm shrink-0">2</div>
+                <div>
+                  <h4 class="font-bold text-forest-dark text-sm sm:text-base">Micro-Capillary Extraction</h4>
+                  <p class="text-xs sm:text-sm text-stone-600">Pores absorb clean room-temperature water. Active botanical compounds dissolve gently without degrading heat or chemical solvents.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4">
+              <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn-wood inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                <span>Claim Offer for ₹699</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Empty right column to frame the 3D tumbler with pouring water droplets -->
+          <div class="lg:col-span-6 pointer-events-none hidden lg:block"></div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- -----------------------------------------------------------------------
+         STAGE 3: COLD INFUSION / HIMA KALPANA
+         Water turns clear amber-brown over simulated night-to-day background transition
+         ----------------------------------------------------------------------- -->
+    <section id="hima-kalpana" class="stage-section py-24 sm:py-32">
+      <div class="container mx-auto px-4 sm:px-6 relative z-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Spacer for 3D canvas on left/center -->
+          <div class="lg:col-span-5 pointer-events-none hidden lg:block"></div>
+
+          <!-- Right Content: The Ancient Science of Overnight Infusion -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-900 border border-amber-500/30 text-xs font-bold uppercase tracking-wider">
+              <span>Stage 3 • Overnight Hima Kalpana Extraction</span>
+            </div>
+
+            <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-forest-dark leading-tight">
+              The Overnight Alchemy: <br>
+              <span class="font-serif italic font-normal text-amber-800">Clear Water into Medicinal Amber</span>
+            </h2>
+
+            <p class="text-base sm:text-lg text-stone-700 leading-relaxed">
+              In classical Charaka Samhita texts, <span class="font-semibold text-forest-dark">"Hima Kalpana"</span> refers to cold water steeping over a 6 to 8-hour overnight period. As the world sleeps, the untreated Vijaysar heartwood naturally enriches the water with essential polyphenols:
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div class="glass-card p-4 rounded-xl border border-amber-300/40">
+                <div class="text-amber-800 font-bold text-sm flex items-center gap-2 mb-1">
+                  <i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i>
+                  <span>Marsupsin & Pterosupin</span>
+                </div>
+                <p class="text-xs text-stone-600">Bioactive glycosides scientifically documented to support pancreatic beta-cell health and glucose uptake in peripheral tissues.</p>
+              </div>
+
+              <div class="glass-card p-4 rounded-xl border border-amber-300/40">
+                <div class="text-forest font-bold text-sm flex items-center gap-2 mb-1">
+                  <i data-lucide="droplet" class="w-4 h-4 text-emerald-600"></i>
+                  <span>Epicatechin & Liquiritigenin</span>
+                </div>
+                <p class="text-xs text-stone-600">Potent botanical antioxidants that neutralize free radicals, reduce hepatic oxidative stress, and assist gentle liver detoxification.</p>
+              </div>
+            </div>
+
+            <!-- Natural proof highlight box -->
+            <div class="p-4 rounded-2xl bg-amber-100/70 border border-amber-300 text-xs sm:text-sm text-stone-800 space-y-1">
+              <div class="font-bold text-amber-900 flex items-center gap-2">
+                <i data-lucide="check-circle" class="w-4 h-4 text-amber-700"></i>
+                <span>The Visual Proof of Authenticity</span>
+              </div>
+              <p>Untreated medicinal Vijaysar is the only wood in nature that naturally turns pure clear water into a warm reddish-amber herbal elixir overnight without any artificial colorants or tea bags.</p>
+            </div>
+
+            <div class="pt-2 flex items-center gap-4">
+              <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn-primary-wa inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold shadow-md">
+                <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+                <span>Order Vijaysar Tumbler (₹699)</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- -----------------------------------------------------------------------
+         STAGE 4: 360° INSPECTION & POURING INTO CLEAR GLASS
+         Tumbler rotates 360° to showcase wood grain & tilts to pour into adjacent glass
+         ----------------------------------------------------------------------- -->
+    <section id="morning-pour" class="stage-section py-24 sm:py-32">
+      <div class="container mx-auto px-4 sm:px-6 relative z-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-6 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-forest text-xs font-bold uppercase tracking-wider">
+              <span>Stage 4 • Morning Pour & Bioactive Sip</span>
+            </div>
+
+            <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-forest-dark leading-tight">
+              Morning Awakening: <br>
+              <span class="font-serif italic font-normal text-wood">Fresh Infusion into Your Glass</span>
+            </h2>
+
+            <p class="text-base sm:text-lg text-stone-700 leading-relaxed">
+              Tilt and strain your freshly steeped Vijaysar water into a clear drinking glass. Consuming this cool herbal water first thing in the morning on an empty stomach maximizes digestive absorption and jumpstarts natural glucose metabolism.
+            </p>
+
+            <div class="glass-panel p-5 rounded-2xl border border-stone-200 shadow-md space-y-3">
+              <h4 class="font-bold text-forest-dark text-sm sm:text-base flex items-center gap-2">
+                <i data-lucide="sun" class="w-4 h-4 text-amber-600"></i>
+                <span>The Golden Morning Protocol</span>
+              </h4>
+              <ul class="text-xs sm:text-sm text-stone-600 space-y-2">
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span>Drink 100ml first thing upon waking up</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span>Wait 30 to 45 minutes before having morning tea, coffee, or breakfast</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <span>Rinse the wooden tumbler with clean water and let it air-dry during daytime</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn-primary-wa inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-sm font-bold shadow-lg">
+                <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+                <span>Get Started Today (₹699)</span>
+              </a>
+
+              <button onclick="toggleInspectMode()" class="px-5 py-3 rounded-full glass-panel border border-stone-300 text-xs sm:text-sm font-bold text-forest-dark hover:bg-stone-100 flex items-center gap-1.5">
+                <i data-lucide="rotate-3d" class="w-4 h-4 text-forest"></i>
+                <span>Inspect Wood Grain in 360°</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Empty spacer column for 3D tumbler & clear glass pouring animation -->
+          <div class="lg:col-span-6 pointer-events-none hidden lg:block"></div>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <!-- END SCROLL EXPERIENCE CONTAINER -->
+
+
+  <!-- =========================================================================
+       SECTION: OFFICIAL REAL PRODUCT PHOTOGRAPHY & GALLERY
+       Genuine photos, promotional flyers & printed care guides
+       ========================================================================= -->
+  <section id="real-gallery" class="py-24 bg-cream relative z-20 border-t border-stone-200">
+    <div class="container mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>100% Genuine Handcrafted Product</span>
+        </div>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-forest-dark">Authentic Product Showcase</h2>
+        <p class="text-stone-600 text-sm sm:text-base">
+          Explore real studio photographs, official packaging flyers, and printed Ayurvedic usage guides of your Sugar Fit Vijaysar Tumbler.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+        
+        <!-- Image Card 1: Authentic Real Glass & Coaster -->
+        <div class="glass-card rounded-3xl overflow-hidden group border-2 border-amber-400 shadow-lg flex flex-col justify-between hover:shadow-2xl transition-all duration-300 bg-amber-50/40">
+          <div class="relative overflow-hidden aspect-[3/4] bg-stone-100 cursor-pointer flex items-center justify-center p-2" 
+               onclick="openGalleryModal('images/real-glass-showcase.png', 'SUGAR FIT - Authentic Vijaysar Wooden Tumbler & Matching Coaster (Real Physical Glass)')">
+            <img src="images/real-glass-showcase.png" alt="SUGAR FIT Real Physical Glass & Coaster" 
+                 onerror="window.handleImageError && handleImageError(this, 'Sugar Fit Real Physical Glass')"
+                 class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-md">
+            <div class="absolute inset-0 bg-forest-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-4 py-2 rounded-full glass-panel text-white text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                <span>Click to Zoom</span>
+              </span>
+            </div>
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-forest text-amber-300 text-[10px] font-bold border border-amber-400/40 shadow-sm">
+              ★ Authentic Physical Glass
+            </span>
+          </div>
+          <div class="p-4 space-y-1.5">
+            <h3 class="font-display font-bold text-sm sm:text-base text-forest-dark">Real Vijaysar Glass & Lid</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Untreated lathe-turned Vijaysar heartwood with genuine badge: <em>"DIABETES CONTROL GLASS - SUGAR FIT"</em> and matching wooden coaster.
+            </p>
+            <div class="pt-2 flex items-center justify-between text-[11px] text-wood font-semibold">
+              <span class="text-emerald-700 font-bold">0% Polish • Pure Wood</span>
+              <button onclick="openGalleryModal('images/real-glass-showcase.png', 'Real Physical Glass')" class="hover:underline font-bold text-forest">Enlarge ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Card 2: Studio Mat Shot -->
+        <div class="glass-card rounded-3xl overflow-hidden group border border-stone-200 shadow-md flex flex-col justify-between hover:shadow-2xl transition-all duration-300">
+          <div class="relative overflow-hidden aspect-[3/4] bg-stone-100 cursor-pointer" 
+               onclick="openGalleryModal('images/product-studio-shot.png', 'Handcrafted Vijaysar Tumbler & Matching Seal Coaster on Woven Mat')">
+            <img src="images/product-studio-shot.png" alt="Handcrafted Vijaysar Wooden Tumbler and Coaster" 
+                 onerror="window.handleImageError && handleImageError(this, 'Studio Photograph')"
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-forest-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-4 py-2 rounded-full glass-panel text-white text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                <span>Click to Zoom</span>
+              </span>
+            </div>
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-forest-dark/80 backdrop-blur-md text-amber-300 text-[10px] font-bold">
+              Studio Mat Shot
+            </span>
+          </div>
+          <div class="p-4 space-y-1.5">
+            <h3 class="font-display font-bold text-sm sm:text-base text-forest-dark">Raw Vijaysar Heartwood Glass</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Untreated lathe-turned medicinal heartwood photographed in studio on traditional hand-woven jute mat.
+            </p>
+            <div class="pt-2 flex items-center justify-between text-[11px] text-wood font-semibold">
+              <span>0% Polish • Raw Wood</span>
+              <button onclick="openGalleryModal('images/product-studio-shot.png', 'Studio Shot')" class="hover:underline font-bold text-forest">Enlarge ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Card 3: Nature Poster -->
+        <div class="glass-card rounded-3xl overflow-hidden group border border-stone-200 shadow-md flex flex-col justify-between hover:shadow-2xl transition-all duration-300">
+          <div class="relative overflow-hidden aspect-[3/4] bg-stone-100 cursor-pointer" 
+               onclick="openGalleryModal('images/hero-poster.jpg', 'Small Change... Better Health! Natural Sugar, A Healthier You')">
+            <img src="images/hero-poster.jpg" alt="Sugar Fit Natural Sugar Better Health Poster" 
+                 onerror="window.handleImageError && handleImageError(this, 'Campaign Poster')"
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-forest-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-4 py-2 rounded-full glass-panel text-white text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                <span>Click to Zoom</span>
+              </span>
+            </div>
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-emerald-800/80 backdrop-blur-md text-white text-[10px] font-bold">
+              Campaign Poster
+            </span>
+          </div>
+          <div class="p-4 space-y-1.5">
+            <h3 class="font-display font-bold text-sm sm:text-base text-forest-dark">Small Change... Better Health!</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              "Natural Sugar, A Healthier You" — Pure Vijaysar cold infusion capturing the crisp morning serenity of nature.
+            </p>
+            <div class="pt-2 flex items-center justify-between text-[11px] text-wood font-semibold">
+              <span>Pure • Safe • Natural</span>
+              <button onclick="openGalleryModal('images/hero-poster.jpg', 'Campaign Poster')" class="hover:underline font-bold text-forest">Enlarge ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Card 4: Pamphlet Flyer -->
+        <div class="glass-card rounded-3xl overflow-hidden group border border-stone-200 shadow-md flex flex-col justify-between hover:shadow-2xl transition-all duration-300">
+          <div class="relative overflow-hidden aspect-[3/4] bg-stone-100 cursor-pointer" 
+               onclick="openGalleryModal('images/product-pamphlet.jpg', 'Sugar Balance & Body Detox Wooden Tumbler - Official Product Pamphlet (Offer: ₹699 + Free Coaster)')">
+            <img src="images/product-pamphlet.jpg" alt="Sugar Fit Product Pamphlet and Offer Details" 
+                 onerror="window.handleImageError && handleImageError(this, 'Product Flyer')"
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-forest-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-4 py-2 rounded-full glass-panel text-white text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                <span>Click to Zoom</span>
+              </span>
+            </div>
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-amber-700/80 backdrop-blur-md text-amber-100 text-[10px] font-bold">
+              Official Pamphlet
+            </span>
+          </div>
+          <div class="p-4 space-y-1.5">
+            <h3 class="font-display font-bold text-sm sm:text-base text-forest-dark">Product Flyer & Offer (₹699)</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Original product sheet highlighting Pterocarpus Marsupium, weight support, digestion & detox, and ₹699 price.
+            </p>
+            <div class="pt-2 flex items-center justify-between text-[11px] text-wood font-semibold">
+              <span>Best Before 3 Months</span>
+              <button onclick="openGalleryModal('images/product-pamphlet.jpg', 'Product Pamphlet')" class="hover:underline font-bold text-forest">Enlarge ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Card 5: Hindi Instruction Guide -->
+        <div class="glass-card rounded-3xl overflow-hidden group border border-stone-200 shadow-md flex flex-col justify-between hover:shadow-2xl transition-all duration-300">
+          <div class="relative overflow-hidden aspect-[3/4] bg-stone-100 cursor-pointer" 
+               onclick="openGalleryModal('images/hindi-instructions-guide.jpg', 'लकड़ी का गिलास - हिम कल्पना (Hima Kalpana) विधि एवं 10 प्रमुख लाभ (Official Hindi Care Guide)')">
+            <img src="images/hindi-instructions-guide.jpg" alt="Lakdi Ka Glass Hindi Instructions and Benefits Guide" 
+                 onerror="window.handleImageError && handleImageError(this, 'Hindi Guide')"
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-forest-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="px-4 py-2 rounded-full glass-panel text-white text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                <i data-lucide="zoom-in" class="w-4 h-4"></i>
+                <span>Click to Zoom</span>
+              </span>
+            </div>
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-emerald-900/90 backdrop-blur-md text-amber-300 text-[10px] font-bold">
+              हिंदी निर्देश पत्रिका
+            </span>
+          </div>
+          <div class="p-4 space-y-1.5">
+            <h3 class="font-display font-bold text-sm sm:text-base text-forest-dark">लकड़ी का गिलास - हिम कल्पना गाइड</h3>
+            <p class="text-xs text-stone-600 leading-relaxed">
+              Printed Hindi manual detailing 10 classical benefits, usage instructions, and natural wood care.
+            </p>
+            <div class="pt-2 flex items-center justify-between text-[11px] text-wood font-semibold">
+              <span>पारंपरिक आयुर्वेदिक विधि</span>
+              <a href="#hindi-guide" class="hover:underline font-bold text-emerald-800">Read Below ↓</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Official Head Office Verification Banner -->
+      <div class="mt-10 bg-amber-50/95 border border-amber-300 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-xl bg-forest text-amber-300 flex items-center justify-center shrink-0 shadow-md">
+            <i data-lucide="building-2" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-forest-dark">Direct Brand Head Office</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-800 text-amber-200">Verified Address</span>
+            </div>
+            <div class="text-xs sm:text-sm font-semibold text-stone-800 mt-0.5">
+              Head office. ELITE ASHIYANA, DOOR NO. 4/1 RAYYAPA ROAD FRAZAR TOWN BANGLORE. 560005
+            </div>
+            <div class="text-[11px] text-stone-500 mt-0.5">
+              Marketed by ZS NATURAL • Email: <a href="mailto:zsayurvedaa@gmail.com" class="text-wood hover:underline font-semibold">zsayurvedaa@gmail.com</a> • Mobiles: +91 7017905125 / +91 9358190766
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="openGalleryModal('images/head-office-card.jpg', 'Head office. ELITE ASHIYANA, DOOR NO. 4/1 RAYYAPA ROAD FRAZAR TOWN BANGLORE. 560005 - ZS NATURAL')" 
+                  class="px-4 py-2 rounded-xl bg-white hover:bg-stone-50 text-forest-dark border border-amber-300 text-xs font-bold shadow-sm transition-all flex items-center gap-1.5">
+            <i data-lucide="file-check" class="w-4 h-4 text-emerald-700"></i>
+            <span>Official Card</span>
+          </button>
+          <a href="https://maps.google.com/?q=ELITE+ASHIYANA+DOOR+NO+4/1+RAYYAPA+ROAD+FRAZAR+TOWN+BANGLORE+560005" target="_blank" rel="noopener noreferrer" 
+             class="px-4 py-2 rounded-xl bg-forest hover:bg-forest-light text-amber-200 text-xs font-bold shadow-sm transition-all flex items-center gap-1.5">
+            <i data-lucide="map-pin" class="w-4 h-4"></i>
+            <span>Google Maps</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Trust Callout -->
+      <div class="mt-12 glass-panel p-5 rounded-2xl border border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-forest text-amber-300 flex items-center justify-center shrink-0">
+            <i data-lucide="check-check" class="w-5 h-5"></i>
+          </div>
+          <div class="text-xs sm:text-sm text-stone-700">
+            <span class="font-bold text-forest-dark">What you see is what you receive:</span> Genuine, untreated Vijaysar heartwood lathe-turned with precision + matching coaster + printed usage manual.
+          </div>
+        </div>
+        <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+           target="_blank" rel="noopener noreferrer"
+           class="btn-primary-wa whitespace-nowrap px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+          <span>Order via WhatsApp (₹699)</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       SECTION: LIVE PRODUCT VIDEO DEMONSTRATION
+       High-converting video player showcasing real tumbler & water infusion
+       ========================================================================= -->
+  <section id="video-demo" class="py-24 bg-gradient-to-b from-[#14281B] via-[#1A3423] to-[#112016] text-white relative z-20 overflow-hidden border-y border-amber-500/30">
+    <div class="absolute inset-0 bg-[radial-gradient(#5B8E32_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none"></div>
+    <div class="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-leaf/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 relative z-10 max-w-5xl">
+      
+      <!-- Video Header -->
+      <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-600/90 text-white text-xs font-bold uppercase tracking-wider shadow-md">
+          <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+          <i data-lucide="video" class="w-4 h-4"></i>
+          <span>Official Live Video Demo</span>
+        </div>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white">Watch Sugar Fit in Action</h2>
+        <div class="text-amber-300 font-bold text-sm sm:text-base">लाइव वीडियो डेमो — विजयासार लकड़ी का गिलास एवं पानी का रंग बदलना</div>
+        <p class="text-emerald-100/80 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto">
+          See the genuine lathe-turned Vijaysar heartwood, authentic coaster lid, and the natural overnight water transformation before placing your order.
+        </p>
+      </div>
+
+      <!-- Video Player Frame -->
+      <div class="relative max-w-xl mx-auto glass-panel-dark rounded-3xl p-3 sm:p-5 border-2 border-amber-400/50 shadow-2xl overflow-hidden">
+        <div class="relative rounded-2xl overflow-hidden bg-black max-h-[580px] aspect-[9/16] mx-auto flex items-center justify-center shadow-inner">
+          <video id="sugarfit-main-video" 
+                 controls 
+                 playsinline 
+                 preload="metadata" 
+                 poster="images/hero-product-main.png" 
+                 class="w-full h-full object-contain">
+            <source src="videos/sugarfit-demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Video Info & Trust Points -->
+        <div class="mt-4 pt-4 border-t border-emerald-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-emerald-100/80">
+          <div class="flex items-center gap-2">
+            <i data-lucide="check-circle" class="w-4 h-4 text-amber-400 shrink-0"></i>
+            <span>100% Authentic Wood Tumbler</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="check-circle" class="w-4 h-4 text-amber-400 shrink-0"></i>
+            <span>Real Cold Water Amber Extraction</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i data-lucide="check-circle" class="w-4 h-4 text-amber-400 shrink-0"></i>
+            <span>Free Matching Wooden Coaster</span>
+          </div>
+        </div>
+
+        <!-- Video Bottom CTA -->
+        <div class="mt-5 pt-4 border-t border-emerald-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="text-center sm:text-left">
+            <div class="text-xs text-emerald-300 font-semibold">Ready to order after watching?</div>
+            <div class="text-base font-bold text-white">Special Offer Price: ₹699 <span class="text-xs text-emerald-400 font-normal line-through">₹1,399</span></div>
+          </div>
+          <a href="https://wa.me/917017905125?text=Hi%2C%20I%20watched%20the%20video%20demo%20and%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+             target="_blank" rel="noopener noreferrer"
+             class="btn-primary-wa px-6 py-3 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 shadow-lg w-full sm:w-auto justify-center">
+            <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+            <span>Order via WhatsApp (₹699)</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       SECTION 2: CORE HEALTH BENEFITS
+       Glassmorphism cards with subtle micro-interactions
+       ========================================================================= -->
+  <section id="benefits" class="py-24 bg-cream-card/70 border-t border-stone-200/80 relative z-20">
+    <div class="container mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-wood">Holistic Healing</span>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-forest-dark">Core Health Benefits</h2>
+        <p class="text-stone-600 text-sm sm:text-base">
+          Time-tested Ayurvedic wisdom meeting modern nutritional wellness. Experience balanced vitality through pure heartwood water infusion.
+        </p>
+      </div>
+
+      <!-- 4 Core Benefits Glassmorphism Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Card 1: Blood Sugar Regulation -->
+        <div class="glass-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between border-t-4 border-t-emerald-700">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shadow-inner">
+              <i data-lucide="activity" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-display font-bold text-lg sm:text-xl text-forest-dark">Blood Sugar Regulation</h3>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Active polyphenols (Pterosupin & Marsupsin) assist healthy pancreatic beta-cell rejuvenation, enhancing natural glucose tolerance and metabolic stability.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-200 text-[11px] font-bold text-emerald-800 flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Balances HbA1c Fluctuations</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Digestion & Metabolism -->
+        <div class="glass-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between border-t-4 border-t-amber-600">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shadow-inner">
+              <i data-lucide="flame" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-display font-bold text-lg sm:text-xl text-forest-dark">Digestion & Metabolism</h3>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Eases morning sluggishness, indigestion, acid reflux, and abdominal bloating by harmonizing Pitta and Kapha doshas and rekindling digestive fire (Agni).
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-200 text-[11px] font-bold text-amber-800 flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Relieves Bloating & Gas</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Natural Body Detox -->
+        <div class="glass-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between border-t-4 border-t-wood">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-wood-dark flex items-center justify-center shadow-inner">
+              <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-display font-bold text-lg sm:text-xl text-forest-dark">Natural Body Detox</h3>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Herbal water infusion gently supports kidney filtration and liver enzyme function, aiding in the natural expulsion of metabolic toxins (Ama) from the blood.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-200 text-[11px] font-bold text-wood-dark flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Renal & Hepatic Flush</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Weight & Vitality Management -->
+        <div class="glass-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between border-t-4 border-t-forest">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-forest-soft text-forest-dark flex items-center justify-center shadow-inner">
+              <i data-lucide="heart-pulse" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-display font-bold text-lg sm:text-xl text-forest-dark">Weight & Vitality</h3>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Promotes cellular metabolic activity, reduces internal systemic inflammation, and assists in steady, sustainable body weight and cholesterol management.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-200 text-[11px] font-bold text-forest-dark flex items-center gap-1.5">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Boosts Clean Morning Energy</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Phytochemical Scientific Badge Bar -->
+      <div class="mt-12 glass-panel p-5 rounded-2xl border border-stone-200 flex flex-wrap items-center justify-around gap-4 text-xs font-semibold text-stone-700">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+          <span>Botanical Name: <em>Pterocarpus Marsupium</em></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span>
+          <span>Active Flavonoid: Pterosupin</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-wood"></span>
+          <span>Natural Glycoside: Marsupsin</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-800"></span>
+          <span>Sanskrit: Vijayasara / Asana</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       SECTION 3: HOW TO USE (Interactive 3-Step Guide)
+       ========================================================================= -->
+  <section id="usage-guide" class="py-24 bg-cream relative z-20">
+    <div class="container mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-wood">Simplicity in Routine</span>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-forest-dark">3-Step Daily Ritual</h2>
+        <p class="text-stone-600 text-sm sm:text-base">
+          No complex pills or messy concoctions. A timeless 3-step evening and morning wellness habit.
+        </p>
+      </div>
+
+      <!-- 3 Steps Visual Flow -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        
+        <!-- Step 1 (Night) -->
+        <div class="glass-card p-7 rounded-3xl relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-4 right-4 text-5xl font-display font-extrabold text-stone-200 pointer-events-none">01</div>
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-forest text-amber-200 flex items-center justify-center font-bold text-lg shadow-md">
+              <i data-lucide="moon" class="w-6 h-6"></i>
+            </div>
+            <div class="text-xs font-bold text-wood uppercase tracking-wider">Step 1 • Night Preparation</div>
+            <h3 class="font-display font-bold text-xl text-forest-dark">Rinse & Fill with Fresh Water</h3>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Wash the tumbler lightly with clean tap or filtered water (<strong>never use dish soaps or harsh chemical detergents</strong>). Before heading to bed, fill the tumbler with fresh, room-temperature drinking water and cover with the matching wooden lid.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-stone-200 text-xs text-stone-500 flex items-center gap-2">
+            <i data-lucide="info" class="w-4 h-4 text-amber-600 shrink-0"></i>
+            <span>Takes less than 30 seconds before sleep</span>
+          </div>
+        </div>
+
+        <!-- Step 2 (Soak) -->
+        <div class="glass-card p-7 rounded-3xl relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-4 right-4 text-5xl font-display font-extrabold text-stone-200 pointer-events-none">02</div>
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-700 text-amber-100 flex items-center justify-center font-bold text-lg shadow-md">
+              <i data-lucide="clock" class="w-6 h-6"></i>
+            </div>
+            <div class="text-xs font-bold text-wood uppercase tracking-wider">Step 2 • Overnight Steeping</div>
+            <h3 class="font-display font-bold text-xl text-forest-dark">Steep for 6 to 8 Hours</h3>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Let the water rest undisturbed overnight via traditional Ayurvedic <em>"Hima Kalpana"</em>. The medicinal heartwood slowly releases its natural reddish-amber botanical essence, infusing the water with soluble active flavonoids.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-stone-200 text-xs text-stone-500 flex items-center gap-2">
+            <i data-lucide="droplet" class="w-4 h-4 text-amber-600 shrink-0"></i>
+            <span>Water naturally transforms into amber color</span>
+          </div>
+        </div>
+
+        <!-- Step 3 (Morning) -->
+        <div class="glass-card p-7 rounded-3xl relative overflow-hidden flex flex-col justify-between">
+          <div class="absolute top-4 right-4 text-5xl font-display font-extrabold text-stone-200 pointer-events-none">03</div>
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-700 text-amber-100 flex items-center justify-center font-bold text-lg shadow-md">
+              <i data-lucide="sunrise" class="w-6 h-6"></i>
+            </div>
+            <div class="text-xs font-bold text-wood uppercase tracking-wider">Step 3 • Morning Intake</div>
+            <h3 class="font-display font-bold text-xl text-forest-dark">Strain & Drink First Thing</h3>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              In the morning, strain the herbal amber-colored water into a clean glass and drink first thing on an empty stomach. Wait 30-45 minutes before having your morning tea or breakfast for maximum herbal absorption.
+            </p>
+          </div>
+          <div class="mt-6 pt-3 border-t border-stone-200 text-xs text-stone-500 flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+            <span>Empowers sustained energy & gut balance</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Authentic Characteristic / Seepage Notice Alert (Crucial Requirement) -->
+      <div class="mt-12 glass-panel p-6 sm:p-8 rounded-3xl border-2 border-amber-300 shadow-lg relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row items-start gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-800 flex items-center justify-center shrink-0 border border-amber-400">
+            <i data-lucide="shield-alert" class="w-6 h-6"></i>
+          </div>
+          <div class="space-y-2">
+            <h4 class="font-display font-bold text-lg sm:text-xl text-forest-dark flex items-center gap-2">
+              <span>Authentic Characteristic & Natural Wood Property Notice</span>
+              <span class="text-xs font-bold bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full">Important</span>
+            </h4>
+            <p class="text-xs sm:text-sm text-stone-700 leading-relaxed">
+              Subtle cracking, sweating, or micro-seepage is a <strong>completely normal, inherent physical property</strong> of untreated raw medicinal Vijaysar heartwood. Commercial glasses prevent seepage by coating the interior with toxic polyurethane chemical sealants or plastic varnishes — <strong>we strictly refuse to do this</strong> to preserve 100% Ayurvedic efficacy.
+            </p>
+            <div class="p-3 bg-amber-50 rounded-xl text-xs font-semibold text-stone-800 border border-amber-200 flex items-center gap-2">
+              <i data-lucide="check-circle" class="w-4 h-4 text-emerald-700 shrink-0"></i>
+              <span><strong>Easy Pro Tip:</strong> If seepage occurs, simply place the wooden tumbler inside a clay pot, ceramic saucer, or clean glass bowl overnight. Any collected seepage is also pure medicinal water!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       SECTION: AUTHENTIC HINDI AYURVEDIC LEAFLET & CARE GUIDE (लकड़ी का गिलास)
+       Complete official Hindi usage instructions, 10 traditional benefits & precautions
+       ========================================================================= -->
+  <section id="hindi-guide" class="py-24 bg-forest-dark text-white relative z-20 overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(#2D6A4F_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 relative z-10 max-w-5xl">
+      
+      <!-- Hindi Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-amber-400 text-forest-dark text-xs font-bold uppercase tracking-wider">
+          <i data-lucide="book-open" class="w-4 h-4"></i>
+          <span>ऑफिशियल आयुर्वेदिक निर्देश पुस्तिका (Care Guide)</span>
+        </div>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white">लकड़ी का गिलास (Pterocarpus Marsupium)</h2>
+        <div class="text-amber-300 font-bold text-base sm:text-lg">आयुर्वेद की प्राचीन "हिम कल्पना (Hima Kalpana)" विधि से प्रेरित</div>
+        <p class="text-emerald-100/80 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto">
+          बधाई हो! आपके पास 100% शुद्ध विजयासार की लकड़ी का गिलास है। इसमें पानी को रातभर रखकर लकड़ी के प्राकृतिक और औषधीय गुण प्राप्त किए जाते हैं।
+        </p>
+      </div>
+
+      <!-- 10 Traditional Benefits Hindi Grid -->
+      <div class="glass-panel-dark p-6 sm:p-8 rounded-3xl border border-emerald-700/60 shadow-2xl mb-12">
+        <h3 class="font-display font-bold text-xl sm:text-2xl text-amber-300 mb-6 flex items-center gap-2.5">
+          <i data-lucide="sparkles" class="w-6 h-6 text-amber-400"></i>
+          <span>लकड़ी के गिलास में रखा पानी — पारंपरिक रूप से बताए जाने वाले 10 प्रमुख लाभ</span>
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm text-stone-100">
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">1</span>
+            <div>
+              <strong class="text-white block">मधुमेह नियंत्रण में सहायक</strong>
+              <span class="text-emerald-200/70 text-xs">पारंपरिक रूप से रक्त में शुगर के स्तर को संतुलित रखने में उपयोगी माना जाता है।</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">2</span>
+            <div>
+              <strong class="text-white block">ब्लड शुगर स्तर संतुलित रखना</strong>
+              <span class="text-emerald-200/70 text-xs">प्राकृतिक फ्लेवोनॉयड्स इंसुलिन संवेदनशीलता को सहारा देने में सहायक माने जाते हैं।</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">3</span>
+            <div>
+              <strong class="text-white block">पाचन क्रिया को बेहतर बनाना</strong>
+              <span class="text-emerald-200/70 text-xs">मेटाबॉलिज्म तेज कर सुबह की सुस्ती और कब्ज दूर करने में उपयोगी।</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">4</span>
+            <div>
+              <strong class="text-white block">गैस, अपच व पेट फूलने में राहत</strong>
+              <span class="text-emerald-200/70 text-xs">पेट की जलन और एसिडिटी को पारंपरिक रूप से शांत करता है।</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">5</span>
+            <div>
+              <strong class="text-white block">शरीर की प्राकृतिक सफाई (Detox)</strong>
+              <span class="text-emerald-200/70 text-xs">रक्त में जमा विषैले तत्वों (आम/Ama) को बाहर निकालने में सहयोगी।</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">6</span>
+            <div>
+              <strong class="text-white block">वजन संतुलन में सहायक</strong>
+              <span class="text-emerald-200/70 text-xs">अतिरिक्त चर्बी और भारीपन को नियंत्रित करने में सहायक।</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">7</span>
+            <div>
+              <strong class="text-white block">लिवर स्वास्थ्य को सहयोग</strong>
+              <span class="text-emerald-200/70 text-xs">लिवर एंजाइम और प्राकृतिक फिल्टर प्रणाली को दुरुस्त रखने में मददगार।</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">8</span>
+            <div>
+              <strong class="text-white block">शरीर की गर्मी व अंदरूनी सूजन कम करना</strong>
+              <span class="text-emerald-200/70 text-xs">पित्त दोष शांत कर अंदरूनी जलन और सिस्टमिक सूजन कम करने में सहायक।</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">9</span>
+            <div>
+              <strong class="text-white block">मूत्र संबंधी समस्याओं में पारंपरिक उपयोग</strong>
+              <span class="text-emerald-200/70 text-xs">यूरिनरी ट्रैक्ट और किडनी फिल्ट्रेशन को सुगम बनाने में उपयोगी।</span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">10</span>
+            <div>
+              <strong class="text-white block">प्राकृतिक एंटीबैक्टीरियल गुण</strong>
+              <span class="text-emerald-200/70 text-xs">प्राकृतिक लकड़ी के सूक्ष्म जीवाणुरोधी तत्वों से स्वास्थ्य सुरक्षा।</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructions & Precautions Columns -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        
+        <!-- Left: इस्तेमाल करने का तरीका -->
+        <div class="glass-panel-dark p-6 sm:p-7 rounded-3xl border border-emerald-700/60 space-y-4">
+          <h4 class="font-display font-bold text-lg sm:text-xl text-amber-300 flex items-center gap-2">
+            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+            <span>इस्तेमाल करने का सही तरीका</span>
+          </h4>
+          <ul class="text-xs sm:text-sm text-emerald-100/90 space-y-3">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span>गिलास में सादा पीने का पानी <strong>6 से 8 घंटे या रातभर</strong> भरकर रखें।</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span>सुबह इस अम्बर/लाल-भूरे रंग के पानी को <strong>दूसरे साफ गिलास में छानकर खाली पेट</strong> पिएँ।</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span>पहले उपयोग से पूर्व गिलास को सादे नल के पानी से अच्छी तरह धो लें।</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span><strong class="text-amber-300">साबुन, डिटर्जेंट या किसी भी केमिकल का प्रयोग कदापि न करें।</strong></span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span>उपयोग के बाद दिन में इसे सूखी और छायादार जगह पर उल्टा करके सूखने दें।</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span>एक गिलास का प्रतिदिन <strong>3 माह (90 दिन)</strong> तक पूर्ण उपयोग किया जा सकता है।</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right: ज़रूरी जानकारी -->
+        <div class="glass-panel-dark p-6 sm:p-7 rounded-3xl border border-emerald-700/60 space-y-4">
+          <h4 class="font-display font-bold text-lg sm:text-xl text-amber-300 flex items-center gap-2">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-400"></i>
+            <span>ज़रूरी जानकारी एवं सावधानियां</span>
+          </h4>
+          <ul class="text-xs sm:text-sm text-emerald-100/90 space-y-3">
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span><strong>07 साल से ऊपर</strong> के सभी उम्र के लोग इसका सुरक्षित उपयोग कर सकते हैं।</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span>मधुमेह रोगी दवाइयों के साथ सेवन करते समय अपने चिकित्सक से सलाह लें व शुगर नियमित मापें।</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span>यह उत्पाद आयुर्वेदिक स्वास्थ्य वर्धक है, किसी आपातकालीन डॉक्टरी चिकित्सा का विकल्प नहीं।</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span>समय-समय पर साफ व सूखा रखना आवश्यक है ताकि प्राकृतिक लकड़ी स्वच्छ बनी रहे।</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></span>
+              <span>अनपैकिंग के समय हल्का प्राकृतिक सफेद रेशा दिखना सामान्य है, सादे पानी से धोकर सुखा लें।</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Critical Official Notice Card: Seepage & Farmer Support -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-amber-950/70 border-2 border-amber-400/80 shadow-2xl space-y-4">
+        <div class="flex items-center gap-3 text-amber-300 font-bold text-base sm:text-lg">
+          <i data-lucide="shield-alert" class="w-6 h-6 text-amber-400"></i>
+          <span>विशेष ध्यान रहे — 100% प्राकृतिक लकड़ी की पहचान</span>
+        </div>
+        <p class="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
+          यह गिलास पानी भरने के बाद लकड़ी का हल्का फटना, पसीना आना या लीक होना <strong>पूरी तरह से स्वाभाविक है</strong> जो कि इसके 100% नेचुरल होने की सबसे बड़ी पहचान है। बाजार के केमिकल युक्त ग्लासों में अंदर प्लास्टिक वार्निश की परत होती है, जबकि हम शुद्धता से समझौता नहीं करते।
+        </p>
+        <div class="p-4 rounded-xl bg-forest-dark/80 border border-amber-500/40 text-xs sm:text-sm text-amber-200">
+          <strong>💡 सरल उपाय:</strong> यदि लीक या सीपेज हो, तो इस पूरे लकड़ी के गिलास को किसी <strong>मिट्टी के घड़े, कटोरी या कांच के बड़े बर्तन में डालकर रखें</strong> और उसमें जमा पानी भी औषधीय होने के कारण पीया जा सकता है!
+        </div>
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-between text-xs text-amber-300/80 gap-3 border-t border-amber-900/60">
+          <span>🌾 ऑनलाइन 5 स्टार रेटिंग देकर हमारे साथ किसानों, लकड़हारा भाइयों और इसे बनाने वाले कुशल कारीगरों को प्रोत्साहित करें।</span>
+          <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+             target="_blank" rel="noopener noreferrer"
+             class="btn-primary-wa px-5 py-2 rounded-full font-bold text-white whitespace-nowrap">
+            <span>व्हाट्सएप पर ऑर्डर करें (₹699)</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       SECTION 4: SPECIFICATIONS & INSTRUCTIONS
+       ========================================================================= -->
+  <section id="specifications" class="py-24 bg-cream-card/60 border-t border-stone-200 relative z-20">
+    <div class="container mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-wood">Quality Standards</span>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-forest-dark">Product Specifications</h2>
+        <p class="text-stone-600 text-sm sm:text-base">
+          100% natural composition, chemical-free processing, and certified ethical forest sourcing.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Specs Table & Details -->
+        <div class="lg:col-span-8 glass-card p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm flex flex-col justify-between">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            
+            <div class="space-y-1.5 pb-4 border-b border-stone-200 sm:border-b-0 sm:border-r sm:pr-6">
+              <div class="text-xs text-stone-500 font-semibold uppercase tracking-wider">Botanical Source</div>
+              <div class="text-base sm:text-lg font-bold text-forest-dark font-display">Pterocarpus Marsupium</div>
+              <div class="text-xs text-stone-600">Pure Indian Vijaysar Heartwood (Wild Forest Harvested)</div>
+            </div>
+
+            <div class="space-y-1.5 pb-4 border-b border-stone-200 sm:border-b-0 sm:pl-6">
+              <div class="text-xs text-stone-500 font-semibold uppercase tracking-wider">Chemical Treatment</div>
+              <div class="text-base sm:text-lg font-bold text-forest-dark font-display">0% Polish • 0% Varnish</div>
+              <div class="text-xs text-stone-600">Zero artificial waxes, lacquer, synthetic resins, or dyes.</div>
+            </div>
+
+            <div class="space-y-1.5 pt-4 border-t border-stone-200 sm:border-r sm:pr-6">
+              <div class="text-xs text-stone-500 font-semibold uppercase tracking-wider">Recommended Shelf Life</div>
+              <div class="text-base sm:text-lg font-bold text-forest-dark font-display">Up to 3 Months per Tumbler</div>
+              <div class="text-xs text-stone-600">Best used daily for 90 days. After 3 months, break wood into chips for continued water soaking!</div>
+            </div>
+
+            <div class="space-y-1.5 pt-4 border-t border-stone-200 sm:pl-6">
+              <div class="text-xs text-stone-500 font-semibold uppercase tracking-wider">Age Recommendation</div>
+              <div class="text-base sm:text-lg font-bold text-forest-dark font-display">Ages 7 and Above</div>
+              <div class="text-xs text-stone-600">Suitable for adults & seniors. Diabetic patients on medication should consult physician & monitor levels.</div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Dimensions & Capacity Banner -->
+          <div class="mt-8 pt-6 border-t border-stone-200 grid grid-cols-3 gap-2 text-center text-xs">
+            <div>
+              <span class="block text-stone-400 uppercase text-[10px] font-bold">Capacity</span>
+              <span class="font-bold text-forest-dark text-sm sm:text-base">~100ml</span>
+            </div>
+            <div>
+              <span class="block text-stone-400 uppercase text-[10px] font-bold">Tumbler Height</span>
+              <span class="font-bold text-forest-dark text-sm sm:text-base">~14.5 cm</span>
+            </div>
+            <div>
+              <span class="block text-stone-400 uppercase text-[10px] font-bold">Coaster Included</span>
+              <span class="font-bold text-forest-dark text-sm sm:text-base">Yes (Vijaysar Lid)</span>
+            </div>
+          </div>
+
+          <!-- Brand & Origin Credential -->
+          <div class="mt-5 pt-4 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-600 gap-3 bg-stone-50/90 p-3.5 rounded-xl border border-stone-200/80">
+            <div>
+              <div class="font-bold text-forest-dark text-sm">Marketed By: ZS NATURAL</div>
+              <div class="text-stone-700 font-medium text-xs mt-0.5">
+                <strong>Head office:</strong> ELITE ASHIYANA, DOOR NO. 4/1 RAYYAPA ROAD FRAZAR TOWN BANGLORE. 560005
+              </div>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+              <a href="mailto:zsayurvedaa@gmail.com" class="text-wood hover:underline font-semibold flex items-center gap-1">
+                <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+                <span>zsayurvedaa@gmail.com</span>
+              </a>
+              <span>•</span>
+              <a href="tel:+919358190766" class="font-bold text-forest-dark hover:underline flex items-center gap-1">
+                <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+                <span>+91 9358190766</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Quick Buy Box in Specifications -->
+        <div class="lg:col-span-4 glass-panel p-6 sm:p-8 rounded-3xl border border-amber-300 shadow-lg flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="inline-block px-3 py-1 rounded-full badge-gold text-[10px] font-bold uppercase tracking-wider">
+              Limited Ayurvedic Harvest
+            </div>
+            <h3 class="font-display font-bold text-2xl text-forest-dark">Ready to Start Your Morning Ritual?</h3>
+            <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+              Each Sugar Fit tumbler is individually lathe-turned by skilled rural artisans from matured Vijaysar trees with optimal resin concentration.
+            </p>
+            <div class="p-3 bg-white/70 rounded-xl border border-stone-200 text-xs space-y-1 text-stone-700">
+              <div class="font-bold text-forest-dark">📦 Package Includes:</div>
+              <div>• 1x Vijaysar Wooden Glass</div>
+              <div>• 1x Wooden Coaster / Lid with Badge</div>
+              <div>• 1x Printed Ayurvedic Usage Manual</div>
+            </div>
+          </div>
+
+          <div class="mt-6 space-y-2">
+            <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+               target="_blank" rel="noopener noreferrer"
+               class="btn-primary-wa w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-md">
+              <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+              <span>Order on WhatsApp for ₹699</span>
+            </a>
+            <div class="text-center text-[11px] text-stone-500 font-medium">Free Delivery • 100% Genuine Vijaysar</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       SECTION: COMPARISON (Vijaysar Wood vs. Plastic Bottles vs. Synthetic Pills)
+       ========================================================================= -->
+  <section class="py-20 bg-cream relative z-20">
+    <div class="container mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-xl mx-auto mb-12 space-y-2">
+        <h2 class="font-display text-2xl sm:text-4xl font-extrabold text-forest-dark">Why Pure Vijaysar Wood?</h2>
+        <p class="text-stone-600 text-xs sm:text-sm">See how untreated natural heartwood compares to conventional alternatives.</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full max-w-4xl mx-auto glass-card rounded-2xl overflow-hidden border border-stone-200 text-xs sm:text-sm">
+          <thead class="bg-forest-dark text-white text-left font-display">
+            <tr>
+              <th class="p-4">Feature</th>
+              <th class="p-4 text-amber-300">Sugar Fit Vijaysar Tumbler</th>
+              <th class="p-4 text-stone-300">Regular Plastic / Metal Bottles</th>
+              <th class="p-4 text-stone-300">Chemical Tablets</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-stone-200 text-stone-700">
+            <tr class="bg-amber-50/50">
+              <td class="p-4 font-bold">100% Organic & Chemical-Free</td>
+              <td class="p-4 text-emerald-800 font-bold flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Yes (0% Polish)</td>
+              <td class="p-4 text-red-600">Contains microplastics/BPA</td>
+              <td class="p-4 text-amber-700">Synthetic binders</td>
+            </tr>
+            <tr>
+              <td class="p-4 font-bold">Cold Water Flavonoid Infusion</td>
+              <td class="p-4 text-emerald-800 font-bold flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Rich Amber Infusion</td>
+              <td class="p-4 text-stone-400">Zero active minerals</td>
+              <td class="p-4 text-stone-400">N/A</td>
+            </tr>
+            <tr class="bg-amber-50/50">
+              <td class="p-4 font-bold">Supports Natural Glucose Balance</td>
+              <td class="p-4 text-emerald-800 font-bold flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Documented in Ayurveda</td>
+              <td class="p-4 text-stone-400">No</td>
+              <td class="p-4 text-stone-600">Temporary suppression</td>
+            </tr>
+            <tr>
+              <td class="p-4 font-bold">Gentle on Liver & Gut</td>
+              <td class="p-4 text-emerald-800 font-bold flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-emerald-600"></i> Zero Side Effects</td>
+              <td class="p-4 text-stone-400">Neutral</td>
+              <td class="p-4 text-amber-700">Potential liver burden</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       SECTION: VERIFIED CUSTOMER REVIEWS
+       ========================================================================= -->
+  <section id="testimonials" class="py-24 bg-cream-card/70 border-t border-stone-200 relative z-20">
+    <div class="container mx-auto px-4 sm:px-6">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-wood">Real Stories</span>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-forest-dark">Loved by 10,000+ Morning Drinkers</h2>
+        <p class="text-stone-600 text-sm sm:text-base">
+          Read genuine experiences from everyday people across India balancing their glucose naturally.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        
+        <!-- Review 1 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between border border-stone-200">
+          <div class="space-y-3">
+            <div class="flex items-center text-amber-500 gap-1 text-sm">
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            </div>
+            <p class="text-xs sm:text-sm text-stone-700 italic leading-relaxed">
+              "My fasting blood sugar was fluctuating between 160-175. After drinking this amber water consistently for 5 weeks every morning, it has stabilized down to 125-130! The raw wood aroma is very authentic."
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-200 flex items-center justify-between">
+            <div>
+              <div class="font-bold text-forest-dark text-sm">Rajeshwar Sharma</div>
+              <div class="text-[11px] text-stone-500">Jaipur, Rajasthan</div>
+            </div>
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">Verified Buyer</span>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between border border-stone-200">
+          <div class="space-y-3">
+            <div class="flex items-center text-amber-500 gap-1 text-sm">
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            </div>
+            <p class="text-xs sm:text-sm text-stone-700 italic leading-relaxed">
+              "Yes, it had slight sweating on the 3rd day, but as explained in the Hindi leaflet, I simply kept it in a small ceramic bowl overnight. The water turns rich brown color like black tea. My digestion and energy are noticeably higher!"
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-200 flex items-center justify-between">
+            <div>
+              <div class="font-bold text-forest-dark text-sm">Sunita Deshmukh</div>
+              <div class="text-[11px] text-stone-500">Pune, Maharashtra</div>
+            </div>
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">Verified Buyer</span>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-between border border-stone-200">
+          <div class="space-y-3">
+            <div class="flex items-center text-amber-500 gap-1 text-sm">
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            </div>
+            <p class="text-xs sm:text-sm text-stone-700 italic leading-relaxed">
+              "Ordered via WhatsApp and received delivery within 3 days in Bangalore. The free matching wooden coaster badge is very premium. Great natural product without chemicals."
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-200 flex items-center justify-between">
+            <div>
+              <div class="font-bold text-forest-dark text-sm">Venkatesh Iyer</div>
+              <div class="text-[11px] text-stone-500">Bengaluru, Karnataka</div>
+            </div>
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">Verified Buyer</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       SECTION 5: FREQUENTLY ASKED QUESTIONS (Accordion)
+       ========================================================================= -->
+  <section id="faq" class="py-24 bg-cream relative z-20">
+    <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-wood">Everything Explained</span>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-forest-dark">Frequently Asked Questions</h2>
+        <p class="text-stone-600 text-sm sm:text-base">
+          Find answers to common questions about usage, authentic wood properties, and ordering.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        
+        <!-- FAQ 1 -->
+        <div class="accordion-item glass-card rounded-2xl border border-stone-200/80 overflow-hidden active">
+          <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-bold text-forest-dark text-sm sm:text-base flex items-center justify-between gap-4">
+            <span>Why does the water turn amber or reddish-brown overnight?</span>
+            <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-wood shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content px-5 pb-5 text-xs sm:text-sm text-stone-600 leading-relaxed">
+            The rich reddish-amber color is the natural hallmark of authentic Vijaysar (Pterocarpus Marsupium) heartwood. Overnight cold water extraction dissolves the wood’s water-soluble flavonoids (Pterosupin, Marsupsin, and Epicatechin). If the water does not change color, it is not genuine Vijaysar wood.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="accordion-item glass-card rounded-2xl border border-stone-200/80 overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-bold text-forest-dark text-sm sm:text-base flex items-center justify-between gap-4">
+            <span>Is micro-seepage or sweating normal? What should I do?</span>
+            <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-wood shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content px-5 pb-5 text-xs sm:text-sm text-stone-600 leading-relaxed">
+            Yes, completely normal! Untreated natural wood has active pores. Because Sugar Fit uses 0% artificial varnish or plastic lacquer, microscopic sweating or hairline seepage can occur. Simply place the tumbler inside a clay bowl, ceramic saucer, or glass vessel overnight. Any seeped liquid is 100% pure medicinal water and safe to drink.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="accordion-item glass-card rounded-2xl border border-stone-200/80 overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-bold text-forest-dark text-sm sm:text-base flex items-center justify-between gap-4">
+            <span>How long should I use one tumbler?</span>
+            <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-wood shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content px-5 pb-5 text-xs sm:text-sm text-stone-600 leading-relaxed">
+            Each tumbler provides optimal daily herbal extraction for approximately 3 months (90 days). When the water begins to infuse into a very faint or clear tint, the surface resins are exhausted. At that point, you can break the wooden glass into small wood chips to steep in a standard glass jar for another 30-45 days before replacing it.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="accordion-item glass-card rounded-2xl border border-stone-200/80 overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-bold text-forest-dark text-sm sm:text-base flex items-center justify-between gap-4">
+            <span>Can I use soap, detergents, or boiling hot water?</span>
+            <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-wood shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content px-5 pb-5 text-xs sm:text-sm text-stone-600 leading-relaxed">
+            <strong>NEVER use soap, dishwashing liquids, or chemical detergents</strong> on your wooden tumbler, as the raw wood pores will absorb those chemicals. Only rinse with plain tap or filtered water. Also, do not use boiling hot water — cold or room temperature water is ideal for classical "Hima Kalpana" extraction.
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="accordion-item glass-card rounded-2xl border border-stone-200/80 overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full p-5 text-left font-bold text-forest-dark text-sm sm:text-base flex items-center justify-between gap-4">
+            <span>Can I drink this while taking prescribed diabetic medication?</span>
+            <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 text-wood shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="accordion-content px-5 pb-5 text-xs sm:text-sm text-stone-600 leading-relaxed">
+            Yes, Vijaysar is an all-natural dietary wellness ritual. However, because Vijaysar supports natural glycemic balance, monitor your blood sugar regularly and consult your healthcare practitioner. Do not abruptly stop any prescribed medications without consulting your doctor.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       CONVERSION SECTION: CHOOSE YOUR PACK & DYNAMIC WHATSAPP ORDER
+       ========================================================================= -->
+  <section class="py-24 bg-gradient-to-b from-[#14281B] via-[#1A3324] to-[#122217] text-cream relative z-20 overflow-hidden border-t border-amber-500/30">
+    <div class="absolute inset-0 bg-[radial-gradient(#5B8E32_1px,transparent_1px)] [background-size:20px_20px] opacity-25 pointer-events-none"></div>
+    <div class="absolute top-10 left-10 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="container mx-auto px-4 sm:px-6 relative z-10 max-w-5xl">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Guaranteed Fresh Batch</span>
+        <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white">Select Your Wellness Pack</h2>
+        <p class="text-emerald-200/80 text-sm sm:text-base">
+          Order directly via WhatsApp for verified courier dispatch and friendly support.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        
+        <!-- Pack 1: Starter Single -->
+        <div class="glass-panel-dark p-6 rounded-3xl border border-emerald-800/80 flex flex-col justify-between hover:border-amber-400/50 transition-all">
+          <div class="space-y-4">
+            <span class="text-xs font-bold text-emerald-300 uppercase tracking-wider block">Starter Pack</span>
+            <h3 class="font-display font-bold text-xl text-white">1 Pc Vijaysar Tumbler</h3>
+            <p class="text-xs text-emerald-200/70">Ideal for personal 3-month daily ritual testing.</p>
+            
+            <div class="py-3 border-y border-emerald-800/60 flex items-baseline gap-2">
+              <span class="text-3xl font-extrabold font-display text-white">₹699</span>
+              <span class="text-xs text-emerald-400/60 line-through">₹1,399</span>
+              <span class="text-[10px] bg-emerald-800 text-emerald-200 px-2 py-0.5 rounded font-bold">Save ₹700</span>
+            </div>
+
+            <ul class="text-xs text-emerald-100/80 space-y-2">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> 1x Vijaysar Tumbler</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> 1x Matching Wood Coaster</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Free Usage Guide</li>
+            </ul>
+          </div>
+
+          <div class="mt-8">
+            <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+               target="_blank" rel="noopener noreferrer"
+               class="btn-primary-wa w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md">
+              <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+              <span>Order 1 Pc (₹699)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pack 2: Couple / Best Value (Featured) -->
+        <div class="glass-panel-dark p-7 rounded-3xl border-2 border-amber-400 shadow-2xl relative flex flex-col justify-between transform md:-translate-y-2">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-amber-400 text-forest-dark font-extrabold text-[11px] uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md">
+            Most Popular • Save ₹100 Extra
+          </div>
+
+          <div class="space-y-4 pt-2">
+            <span class="text-xs font-bold text-amber-300 uppercase tracking-wider block">Couple Wellness Pack</span>
+            <h3 class="font-display font-bold text-2xl text-white">2 Pcs Tumblers + 2 Coasters</h3>
+            <p class="text-xs text-emerald-200/70">For husband & wife or parent & child morning wellness.</p>
+            
+            <div class="py-3 border-y border-emerald-800/60 flex items-baseline gap-2">
+              <span class="text-4xl font-extrabold font-display text-amber-300">₹1,299</span>
+              <span class="text-xs text-emerald-400/60 line-through">₹2,798</span>
+              <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-bold">Flat ₹1,499 OFF</span>
+            </div>
+
+            <ul class="text-xs text-emerald-100/90 space-y-2">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> 2x Vijaysar Wooden Tumblers</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> 2x Matching Wooden Coasters</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Free Express Pan-India Courier</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Dedicated Ayurvedic WhatsApp Support</li>
+            </ul>
+          </div>
+
+          <div class="mt-8">
+            <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Couple%20Pack%20(2%20Pcs%20at%20Special%20Offer%3A%20%E2%82%B91%2C299)."
+               target="_blank" rel="noopener noreferrer"
+               class="btn-primary-wa w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg">
+              <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+              <span>Order Couple Pack (₹1,299)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pack 3: Family 4-Pack -->
+        <div class="glass-panel-dark p-6 rounded-3xl border border-emerald-800/80 flex flex-col justify-between hover:border-amber-400/50 transition-all">
+          <div class="space-y-4">
+            <span class="text-xs font-bold text-emerald-300 uppercase tracking-wider block">Family Care Pack</span>
+            <h3 class="font-display font-bold text-xl text-white">4 Pcs Tumblers + 4 Coasters</h3>
+            <p class="text-xs text-emerald-200/70">Wholesale pricing for the whole family or gift.</p>
+            
+            <div class="py-3 border-y border-emerald-800/60 flex items-baseline gap-2">
+              <span class="text-3xl font-extrabold font-display text-white">₹2,399</span>
+              <span class="text-xs text-emerald-400/60 line-through">₹5,596</span>
+              <span class="text-[10px] bg-emerald-800 text-emerald-200 px-2 py-0.5 rounded font-bold">Only ₹599/pc</span>
+            </div>
+
+            <ul class="text-xs text-emerald-100/80 space-y-2">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> 4x Handcrafted Tumblers</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> 4x Ayurvedic Coasters</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Free Priority Air Shipping</li>
+            </ul>
+          </div>
+
+          <div class="mt-8">
+            <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Family%20Pack%20(4%20Pcs%20at%20Wholesale%3A%20%E2%82%B92%2C399)."
+               target="_blank" rel="noopener noreferrer"
+               class="btn-primary-wa w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md">
+              <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+              <span>Order Family Pack (₹2,399)</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Alternate Direct Inquiry Support -->
+      <div class="mt-12 text-center text-xs text-emerald-200/70 flex flex-wrap items-center justify-center gap-3">
+        <span>Need assistance with your order?</span>
+        <a href="https://wa.me/919358190766?text=Hi%2C%20I%20have%20an%20inquiry%20regarding%20the%20Sugar%20Fit%20Wooden%20Tumbler."
+           target="_blank" rel="noopener noreferrer"
+           class="text-amber-300 font-bold hover:underline inline-flex items-center gap-1">
+          <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+          <span>Support: +91 9358190766</span>
+        </a>
+        <span>•</span>
+        <a href="mailto:zsayurvedaa@gmail.com" class="text-amber-300 font-bold hover:underline inline-flex items-center gap-1">
+          <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+          <span>zsayurvedaa@gmail.com</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="bg-gradient-to-b from-[#14281B] to-[#0E1B12] text-stone-300 py-14 border-t border-amber-500/30 relative z-20 text-xs">
+    <div class="container mx-auto px-4 sm:px-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-emerald-900/60">
+        
+        <!-- Brand & Mission by ZS NATURAL -->
+        <div class="md:col-span-4 space-y-3.5">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-full bg-forest text-amber-300 flex items-center justify-center border border-amber-400/40">
+              <i data-lucide="leaf" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <span class="font-display font-bold text-lg text-white block leading-none">SUGAR FIT™</span>
+              <span class="text-[10px] text-amber-300 font-bold tracking-wider uppercase">ZS NATURAL</span>
+            </div>
+          </div>
+          <p class="text-stone-400 text-xs leading-relaxed">
+            Marketed by <strong>ZS NATURAL</strong>. Handcrafted medicinal wooden tumblers lathe-turned from pure untreated <em>Pterocarpus Marsupium</em> (Vijaysar) heartwood. 0% Polish, 100% natural Ayurvedic care.
+          </p>
+          <div class="text-[11px] text-emerald-300 font-semibold">
+            Dedicated to traditional Indian Ayurvedic wellness & ethical artisan empowerment.
+          </div>
+        </div>
+
+        <!-- Official Head Office Address from Image -->
+        <div class="md:col-span-4 space-y-2.5">
+          <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-amber-300">
+            <i data-lucide="building" class="w-4 h-4"></i>
+            <span>Head Office Address</span>
+          </div>
+          <div class="text-stone-300 space-y-1 text-xs">
+            <div class="font-bold text-white text-sm tracking-wide">ZS NATURAL</div>
+            <div class="text-amber-200 font-semibold text-xs">Head office. ELITE ASHIYANA</div>
+            <div class="text-stone-200 font-medium">DOOR NO. 4/1 RAYYAPA ROAD</div>
+            <div class="text-stone-200 font-medium">FRAZAR TOWN BANGLORE. 560005</div>
+            <div class="text-stone-400 text-[11px] pt-0.5">Karnataka, India</div>
+          </div>
+          <div class="pt-2 flex flex-wrap gap-3 items-center">
+            <a href="https://maps.google.com/?q=ELITE+ASHIYANA+DOOR+NO+4/1+RAYYAPA+ROAD+FRAZAR+TOWN+BANGLORE+560005" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline text-[11px] inline-flex items-center gap-1 font-semibold">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+              <span>View Location on Map</span>
+            </a>
+            <span class="text-stone-600">•</span>
+            <button onclick="openGalleryModal('images/head-office-card.jpg', 'Head office. ELITE ASHIYANA, DOOR NO. 4/1 RAYYAPA ROAD FRAZAR TOWN BANGLORE. 560005 - ZS NATURAL')" class="text-emerald-400 hover:underline text-[11px] inline-flex items-center gap-1 font-semibold text-left">
+              <i data-lucide="image" class="w-3.5 h-3.5"></i>
+              <span>View Official Card</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Contact Information & Email -->
+        <div class="md:col-span-4 space-y-2.5">
+          <div class="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5 text-amber-300">
+            <i data-lucide="phone-call" class="w-4 h-4"></i>
+            <span>Direct Contact & Orders</span>
+          </div>
+          
+          <div class="space-y-1.5 text-xs text-stone-300">
+            <div>
+              <span class="text-stone-400 block text-[10px] uppercase font-bold">Primary Order Hotline (Call / WhatsApp):</span>
+              <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)." 
+                 class="text-amber-400 font-bold hover:underline text-sm">+91 7017905125</a>
+            </div>
+
+            <div class="pt-1">
+              <span class="text-stone-400 block text-[10px] uppercase font-bold">Support & Inquiries (Call / WhatsApp):</span>
+              <a href="https://wa.me/919358190766?text=Hi%2C%20I%20have%20an%20inquiry%20regarding%20the%20Sugar%20Fit%20Wooden%20Tumbler." 
+                 class="text-amber-400 font-bold hover:underline text-sm">+91 9358190766</a>
+            </div>
+
+            <div class="pt-1">
+              <span class="text-stone-400 block text-[10px] uppercase font-bold">Official Email Address:</span>
+              <a href="mailto:zsayurvedaa@gmail.com" 
+                 class="text-amber-300 font-semibold hover:underline flex items-center gap-1.5">
+                <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+                <span>zsayurvedaa@gmail.com</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Disclaimer & Bottom Bar -->
+      <div class="py-4 text-[11px] text-stone-400 border-b border-emerald-950 leading-relaxed">
+        <strong>Ayurvedic Product Disclaimer:</strong> This product is prepared in accordance with traditional Ayurvedic texts. It is intended to support natural metabolic balance and general vitality, not to diagnose, treat, cure, or replace prescribed medical advice. Always monitor glucose levels regularly.
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-stone-400 text-[11px] gap-2">
+        <div>© 2026 SUGAR FIT™ | <strong>ZS NATURAL</strong>. All rights reserved.</div>
+        <div class="flex items-center gap-4 text-stone-400">
+          <span>Head Office: ELITE ASHIYANA, Banglore 560005</span>
+          <span>•</span>
+          <span>100% Chemical-Free</span>
+          <span>•</span>
+          <span>Pure Vijaysar Wood</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- =========================================================================
+       FLOATING WHATSAPP BUTTON (Bottom Right - Pulsating Requirement)
+       ========================================================================= -->
+  <div class="fixed bottom-6 right-5 z-40 flex items-center group">
+    
+    <!-- Tooltip Chat Preview -->
+    <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+       target="_blank" rel="noopener noreferrer"
+       class="hidden sm:flex items-center gap-2.5 mr-3 px-4 py-2.5 rounded-2xl glass-panel-dark text-white text-xs font-semibold shadow-2xl border border-amber-400/40 hover:scale-105 transition-all">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <div>
+        <div class="text-[10px] text-emerald-300 font-bold uppercase tracking-wider">Ayurvedic Consultant Online</div>
+        <div>Order Sugar Fit on WhatsApp (₹699)</div>
+      </div>
+    </a>
+
+    <!-- Main Pulsating WhatsApp Circle Icon Button -->
+    <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+       target="_blank" rel="noopener noreferrer"
+       class="relative w-14 h-14 rounded-full bg-whatsapp hover:bg-whatsapp-dark text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer"
+       title="Chat with Us on WhatsApp">
+      <div class="pulse-ring-effect"></div>
+      <i data-lucide="message-circle" class="w-7 h-7 fill-white"></i>
+    </a>
+  </div>
+
+
+  <!-- =========================================================================
+       STICKY BOTTOM MOBILE BUY BAR (Mobile Viewport Requirement)
+       ========================================================================= -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 p-3 sm:hidden flex items-center justify-between gap-3 shadow-2xl">
+    <div>
+      <div class="text-[10px] text-stone-500 font-semibold line-through">₹1,399</div>
+      <div class="text-base font-extrabold text-forest-dark font-display leading-none">₹699 <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">50% OFF</span></div>
+    </div>
+
+    <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+       target="_blank" rel="noopener noreferrer"
+       class="btn-primary-wa flex-1 py-3 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg">
+      <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+      <span>Quick Buy via WhatsApp</span>
+    </a>
+  </div>
+
+
+  <!-- =========================================================================
+       CUSTOM ORDER MODAL (Quantity Selector & Instant WhatsApp Dispatch)
+       ========================================================================= -->
+  <div id="order-modal" class="fixed inset-0 z-50 modal-overlay hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-stone-200 relative animate-in fade-in zoom-in duration-200">
+      
+      <!-- Close Button -->
+      <button onclick="closeOrderModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="space-y-4">
+        
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-forest text-amber-300 flex items-center justify-center">
+            <i data-lucide="package" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-lg text-forest-dark">Order Sugar Fit Tumbler</h3>
+            <p class="text-xs text-stone-500">100% Raw Vijaysar Wood + Free Coaster</p>
+          </div>
+        </div>
+
+        <!-- Quantity Picker -->
+        <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200 flex items-center justify-between">
+          <div>
+            <div class="text-xs font-bold text-stone-700">Quantity</div>
+            <div id="order-savings" class="text-[11px] font-bold text-emerald-700">You Save ₹700!</div>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="changeQuantity(-1)" class="w-8 h-8 rounded-full bg-white border border-stone-300 font-bold text-stone-700 hover:bg-stone-100 flex items-center justify-center">-</button>
+            <span id="order-qty" class="font-bold text-base text-forest-dark w-4 text-center">1</span>
+            <button onclick="changeQuantity(1)" class="w-8 h-8 rounded-full bg-white border border-stone-300 font-bold text-stone-700 hover:bg-stone-100 flex items-center justify-center">+</button>
+          </div>
+        </div>
+
+        <!-- Price Breakdown -->
+        <div class="space-y-1.5 text-xs text-stone-600 px-1">
+          <div class="flex justify-between">
+            <span>Special Promotional Price:</span>
+            <span id="order-total-price" class="font-bold text-forest-dark text-sm">₹699</span>
+          </div>
+          <div class="flex justify-between text-emerald-800 font-semibold">
+            <span>Delivery:</span>
+            <span>FREE PAN-INDIA EXPRESS</span>
+          </div>
+          <div class="flex justify-between text-stone-500">
+            <span>Included Free Gift:</span>
+            <span>Carved Wooden Coaster/Lid</span>
+          </div>
+        </div>
+
+        <!-- Direct WhatsApp CTA -->
+        <div class="pt-2">
+          <a id="dynamic-wa-order-btn" 
+             href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)."
+             target="_blank" rel="noopener noreferrer"
+             class="btn-primary-wa w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg">
+            <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+            <span>Confirm Order on WhatsApp</span>
+          </a>
+          <p class="text-[11px] text-center text-stone-400 mt-2">Cash on Delivery & Online Payment Supported</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       REAL PRODUCT PHOTO LIGHTBOX MODAL
+       ========================================================================= -->
+  <div id="gallery-modal" class="fixed inset-0 z-50 modal-overlay hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl border border-stone-200 relative flex flex-col items-center animate-in fade-in zoom-in duration-200">
+      
+      <button onclick="closeGalleryModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center z-10 transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <img id="gallery-modal-img" src="" alt="Real Product Photo" class="max-h-[68vh] w-auto rounded-2xl object-contain shadow-md mb-4 border border-stone-100">
+      
+      <div id="gallery-modal-caption" class="font-display font-bold text-sm sm:text-base text-forest-dark text-center px-4 leading-snug"></div>
+      
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
+        <a href="https://wa.me/917017905125?text=Hi%2C%20I%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)." 
+           target="_blank" rel="noopener noreferrer"
+           class="btn-primary-wa px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 shadow-md">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+          <span>Order This Product (₹699)</span>
+        </a>
+
+        <button onclick="closeGalleryModal()" class="px-5 py-2.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs sm:text-sm font-bold transition-all">
+          Close Preview
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       REAL PRODUCT VIDEO LIGHTBOX MODAL
+       ========================================================================= -->
+  <div id="video-modal" class="fixed inset-0 z-50 modal-overlay hidden flex items-center justify-center p-4">
+    <div class="bg-forest-dark rounded-3xl max-w-3xl w-full p-4 sm:p-6 shadow-2xl border border-amber-400/40 relative flex flex-col items-center animate-in fade-in zoom-in duration-200">
+      
+      <button onclick="closeVideoModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-800/80 hover:bg-stone-700 text-white flex items-center justify-center z-10 transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="w-full rounded-2xl overflow-hidden bg-black max-h-[70vh] aspect-[9/16] max-w-sm mx-auto flex items-center justify-center shadow-inner">
+        <video id="modal-video-player" controls playsinline preload="metadata" poster="images/hero-product-main.png" class="w-full h-full object-contain">
+          <source src="videos/sugarfit-demo.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div class="mt-4 flex flex-wrap items-center justify-between w-full text-white text-xs gap-3 pt-2">
+        <div class="font-bold flex items-center gap-2 text-amber-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+          <span>Official Sugar Fit Vijaysar Tumbler Live Video Demo</span>
+        </div>
+        <a href="https://wa.me/917017905125?text=Hi%2C%20I%20watched%20the%20video%20demo%20and%20want%20to%20order%20the%20Sugar%20Fit%20Wooden%20Tumbler%20(Offer%3A%20%E2%82%B9699)." 
+           target="_blank" rel="noopener noreferrer" 
+           class="btn-primary-wa px-6 py-2.5 rounded-full font-bold flex items-center gap-1.5 shadow-md">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-white"></i>
+          <span>Order Now on WhatsApp (₹699)</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Lightbox Modal Helper Script -->
+  <script>
+    window.openGalleryModal = function(src, caption) {
+      const modal = document.getElementById('gallery-modal');
+      const img = document.getElementById('gallery-modal-img');
+      const cap = document.getElementById('gallery-modal-caption');
+      if (modal && img) {
+        img.src = src;
+        if (cap) cap.innerText = caption;
+        modal.classList.remove('hidden');
+        if (window.lucide) lucide.createIcons();
+      }
+    };
+
+    window.closeGalleryModal = function() {
+      const modal = document.getElementById('gallery-modal');
+      if (modal) modal.classList.add('hidden');
+    };
+
+    window.openVideoModal = function() {
+      const modal = document.getElementById('video-modal');
+      const video = document.getElementById('modal-video-player');
+      if (modal) {
+        modal.classList.remove('hidden');
+        if (video) video.play().catch(e => console.log('Autoplay handled', e));
+        if (window.lucide) lucide.createIcons();
+      }
+    };
+
+    window.closeVideoModal = function() {
+      const modal = document.getElementById('video-modal');
+      const video = document.getElementById('modal-video-player');
+      if (video) video.pause();
+      if (modal) modal.classList.add('hidden');
+    };
+
+    // Graceful image fallback handler
+    window.handleImageError = function(img, fallbackText) {
+      if (!img) return;
+      img.onerror = null;
+      img.classList.add('hidden');
+      if (img.parentElement) {
+        const fallback = document.createElement('div');
+        fallback.className = 'w-full h-full min-h-[220px] flex flex-col items-center justify-center p-4 text-center bg-stone-100 text-stone-700 rounded-2xl border border-stone-200';
+        fallback.innerHTML = `
+          <div class="w-10 h-10 rounded-full bg-forest text-amber-300 flex items-center justify-center mb-2 shadow-sm">
+            <i data-lucide="image" class="w-5 h-5"></i>
+          </div>
+          <span class="font-bold text-xs text-forest-dark uppercase tracking-wider">${fallbackText || 'Sugar Fit Product'}</span>
+          <span class="text-[10px] text-stone-500 mt-1">100% Pure Vijaysar Wood</span>
+        `;
+        img.parentElement.appendChild(fallback);
+        if (window.lucide) lucide.createIcons();
+      }
+    };
+
+    // Interactive 360 Drag & Spin for Real Physical Glass
+    document.addEventListener('DOMContentLoaded', function() {
+      const viewer = document.getElementById('interactive-360-viewer');
+      const glassImg = document.getElementById('real-glass-img');
+      if (!viewer || !glassImg) return;
+
+      let isDown = false;
+      let startX = 0;
+      let startY = 0;
+      let currentRotationY = 0;
+      let currentTiltX = 0;
+
+      window.isDraggingRealGlass = false;
+
+      function onPointerDown(e) {
+        isDown = true;
+        startX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        startY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        viewer.style.cursor = 'grabbing';
+      }
+
+      function onPointerMove(e) {
+        if (!isDown) return;
+        const x = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        const y = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        const deltaX = x - startX;
+        const deltaY = y - startY;
+
+        if (Math.abs(deltaX) > 4 || Math.abs(deltaY) > 4) {
+          window.isDraggingRealGlass = true;
+        }
+
+        currentRotationY += deltaX * 0.45;
+        currentTiltX = Math.max(-14, Math.min(14, currentTiltX - deltaY * 0.2));
+
+        startX = x;
+        startY = y;
+
+        glassImg.style.transform = `perspective(1000px) rotateY(${currentRotationY}deg) rotateX(${currentTiltX}deg) scale(1.03)`;
+        const shadowOffset = Math.sin(currentRotationY * Math.PI / 180) * 16;
+        glassImg.style.filter = `drop-shadow(${shadowOffset}px 18px 24px rgba(40,24,10,0.25))`;
+      }
+
+      function onPointerUp() {
+        if (!isDown) return;
+        isDown = false;
+        viewer.style.cursor = 'grab';
+        setTimeout(() => { window.isDraggingRealGlass = false; }, 120);
+
+        if (window.gsap) {
+          gsap.to(glassImg, {
+            duration: 0.9,
+            ease: 'power2.out',
+            onUpdate: function() {
+              currentRotationY *= 0.93;
+              currentTiltX *= 0.93;
+              glassImg.style.transform = `perspective(1000px) rotateY(${currentRotationY}deg) rotateX(${currentTiltX}deg)`;
+              glassImg.style.filter = `drop-shadow(0px 16px 28px rgba(40,24,10,0.22))`;
+            }
+          });
+        }
+      }
+
+      viewer.addEventListener('mousedown', onPointerDown);
+      window.addEventListener('mousemove', onPointerMove);
+      window.addEventListener('mouseup', onPointerUp);
+
+      viewer.addEventListener('touchstart', onPointerDown, { passive: true });
+      window.addEventListener('touchmove', onPointerMove, { passive: true });
+      window.addEventListener('touchend', onPointerUp);
+    });
+  </script>
+
+  <!-- Main 3D Engine & Logic -->
+  <script src="main.js"></script>
+
+</body>
+</html>

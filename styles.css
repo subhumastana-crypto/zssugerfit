@@ -1,0 +1,317 @@
+/* ==========================================================================
+   SUGAR FIT - Diabetes Control & Body Detox Wooden Tumbler
+   Modern Ayurvedic Aesthetic Stylesheet
+   ========================================================================== */
+
+:root {
+  /* ========================================================================
+     Exact Palette Extracted from Master Product Image:
+     - Warm Golden Teak Heartwood: #B8732A, #C1742F, #D89748
+     - Deep Carved Wood Grain & Coaster: #633917, #7B5D42
+     - Fresh Botanical Leaf Green: #5B8E32, #7EB23A, #375B1B
+     - Label Badge Deep Forest: #1E3E26, #14281B
+     - Label Badge Golden Yellow: #DFAB2E, #F7D26D
+     - Warm Sunlight Bokeh Cream: #F7F2EA, #FAF6F0, #F2E7D3
+     - Cold Infusion Medicinal Amber: #C87A28, #E2943B
+     ======================================================================== */
+  --color-forest: #1E3E26;
+  --color-forest-dark: #14281B;
+  --color-forest-light: #2D5A38;
+  --color-forest-soft: #E4EED7;
+
+  --color-leaf: #5B8E32;
+  --color-leaf-light: #7EB23A;
+  --color-leaf-dark: #375B1B;
+
+  --color-wood: #B8732A;
+  --color-wood-dark: #633917;
+  --color-wood-light: #D89748;
+
+  --color-cream: #F7F2EA;
+  --color-cream-card: #FAF6F0;
+  --color-cream-honey: #F2E7D3;
+
+  --color-amber: #C87A28;
+  --color-amber-dark: #8E4E12;
+  --color-amber-light: #FCEBD3;
+
+  --color-gold: #DFAB2E;
+  --color-gold-light: #F7D26D;
+
+  --color-whatsapp: #25D366;
+  --color-whatsapp-dark: #1EBE5D;
+}
+
+/* Base resets & typography */
+html {
+  scroll-behavior: smooth;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-cream);
+  color: #1F2937;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-cream);
+  background-image: 
+    radial-gradient(circle at 85% 15%, rgba(223, 171, 46, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 15% 35%, rgba(91, 142, 50, 0.10) 0%, transparent 45%),
+    radial-gradient(circle at 85% 65%, rgba(184, 115, 42, 0.08) 0%, transparent 40%),
+    radial-gradient(rgba(184, 115, 42, 0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 24px 24px;
+  color: #2D3748;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-display {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+}
+
+/* Custom selection */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-forest-dark);
+}
+
+/* Smooth custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #EFE5D5;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-wood);
+  border-radius: 5px;
+  border: 2px solid #EFE5D5;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-wood-dark);
+}
+
+/* Glassmorphism utility with warm honey sunlight reflection */
+.glass-panel {
+  background: rgba(251, 248, 243, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(223, 171, 46, 0.35);
+  box-shadow: 0 8px 24px -4px rgba(99, 57, 23, 0.06);
+}
+
+.glass-panel-dark {
+  background: rgba(20, 40, 27, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(223, 171, 46, 0.4);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.35);
+}
+
+.glass-card {
+  background: rgba(253, 250, 245, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 115, 42, 0.16);
+  box-shadow: 0 10px 30px -10px rgba(99, 57, 23, 0.08);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 35px -10px rgba(99, 57, 23, 0.15);
+  border-color: rgba(223, 171, 46, 0.45);
+}
+
+/* Subtle wood texture subtle pattern */
+.wood-texture-bg {
+  background-color: var(--color-cream);
+  background-image: radial-gradient(rgba(139, 90, 43, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Botanical subtle radial glow matching leaf & sunlight */
+.botanical-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(126, 178, 58, 0.22) 0%, rgba(247, 242, 234, 0) 70%);
+}
+
+.amber-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(223, 171, 46, 0.22) 0%, rgba(247, 242, 234, 0) 70%);
+}
+
+/* Floating WhatsApp Pulsing */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+.pulse-ring-effect {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border-radius: 9999px;
+  border: 2px solid var(--color-whatsapp);
+  animation: pulse-ring 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  pointer-events: none;
+}
+
+/* Floating 3D canvas container */
+#webgl-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  pointer-events: none; /* Allows scrolling text through canvas */
+  transition: opacity 0.5s ease;
+}
+
+#webgl-container.interactive-mode {
+  pointer-events: auto !important;
+  cursor: grab;
+}
+
+#webgl-container.interactive-mode:active {
+  cursor: grabbing;
+}
+
+/* Custom 3D UI Overlay */
+.canvas-ui-layer {
+  position: fixed;
+  z-index: 30;
+  pointer-events: none;
+}
+.canvas-ui-layer * {
+  pointer-events: auto;
+}
+
+/* Day to Night Sky Canvas / Background Transition */
+#sky-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(135deg, #FAF6F0 0%, #F3EBDD 50%, #ECE0CB 100%);
+  transition: background 1.2s ease, filter 1.2s ease;
+}
+
+#sky-backdrop.night-mode {
+  background: linear-gradient(135deg, #0C1A11 0%, #14281B 50%, #1A3423 100%);
+}
+
+/* Badges and tags matching tumbler label */
+.badge-gold {
+  background: linear-gradient(135deg, #FBE08B 0%, #DFAB2E 100%);
+  color: #4D2C0A;
+  border: 1px solid rgba(223, 171, 46, 0.45);
+  box-shadow: 0 2px 8px rgba(223, 171, 46, 0.35);
+}
+
+.badge-forest {
+  background: linear-gradient(135deg, rgba(30, 62, 38, 0.12) 0%, rgba(91, 142, 50, 0.14) 100%);
+  color: #1E3E26;
+  border: 1px solid rgba(91, 142, 50, 0.28);
+}
+
+/* High Converting CTA Button Styling */
+.btn-primary-wa {
+  background: linear-gradient(135deg, #25D366 0%, #1B9E4B 100%);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px -4px rgba(37, 211, 102, 0.45);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary-wa:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 30px -4px rgba(37, 211, 102, 0.6);
+}
+
+.btn-wood {
+  background: linear-gradient(135deg, #B8732A 0%, #7A4213 100%);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px -4px rgba(122, 66, 19, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-wood:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -4px rgba(122, 66, 19, 0.55);
+}
+
+/* Section spacers for GSAP ScrollTrigger stages */
+.stage-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 20;
+}
+
+/* Authenticity stamp */
+.ayurvedic-stamp {
+  border: 2px dashed #8B5A2B;
+  background: rgba(212, 163, 115, 0.08);
+}
+
+/* Accordion transition */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, opacity 0.3s ease-out, padding 0.3s ease;
+  opacity: 0;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 400px;
+  opacity: 1;
+}
+
+.accordion-item.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* Shimmer animation for promotional tags */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #8B5A2B 0%, #D4A373 50%, #8B5A2B 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s infinite linear;
+}
+
+/* Modal animation */
+.modal-overlay {
+  background: rgba(13, 36, 26, 0.7);
+  backdrop-filter: blur(8px);
+  transition: opacity 0.3s ease;
+}
